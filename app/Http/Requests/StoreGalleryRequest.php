@@ -22,7 +22,7 @@ class StoreGalleryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'gallery_category_id' => ['required', 'int'],
             'image' => 'required|mimes:jgp,jpeg,png|max:50000',
         ];
     }

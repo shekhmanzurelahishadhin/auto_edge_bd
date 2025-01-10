@@ -25,8 +25,10 @@ class GalleryCategory extends Model
     {
         return $this->belongsTo(Admin::class,'created_by');
     }
-
-
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
     public static function boot()
     {
         parent::boot();

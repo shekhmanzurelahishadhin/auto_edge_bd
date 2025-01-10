@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <img src="{{ asset('assets') }}/media/components/b-main-slider/2.jpg" alt="">
+                    <img src="{{ asset('assets') }}/media/components/b-main-slider/2.jpg" class="" alt="">
                 </div>
             </div>
         </div>
@@ -267,82 +267,30 @@
                         <ul class="b-isotope-filter list-inline">
                             <li class="current"><a href="#" data-filter="*">all</a>
                             </li>
-                            <li><a href="#" data-filter=".sale">for sale</a>
+                            @foreach($gallery_categories as $category)
+                            <li><a href="#" data-filter=".item{{$category->id}}">{{$category->title}}</a>
                             </li>
-                            <li><a href="#" data-filter=".new">new arrivals</a>
-                            </li>
-                            <li><a href="#" data-filter=".top">top brands</a>
-                            </li>
-                            <li><a href="#" data-filter=".ferrari">ferrari</a>
-                            </li>
-                            <li><a href="#" data-filter=".mercedes">mercedes</a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
             <ul class="b-isotope-grid grid list-unstyled">
                 <li class="grid-sizer"></li>
-                <li class="b-isotope-grid__item grid-item top mercedes">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/1.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/1.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item sale ferrari">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/2.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/2.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item new top mercedes">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/3.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/3.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item sale top">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/4.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/4.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item sale ferrari">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/5.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/5.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item new top mercedes">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/6.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/6.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item sale ferrari">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/7.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/7.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item sale top">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/8.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/8.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item sale mercedes">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/9.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/9.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
-                <li class="b-isotope-grid__item grid-item new">
-                    <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset('assets') }}/media/content/gallery/384x300/10.jpg">
-                        <img src="{{ asset('assets') }}/media/content/gallery/384x300/10.jpg" alt="foto" /><span class="b-isotope-grid__wrap-info helper"><span class="b-isotope-grid__info"><i class="icon fa fa-search"></i><span class="b-isotope-grid__title">porsche panamera 2018</span></span>
-                                </span>
-                    </a>
-                </li>
+
+                @foreach($galleries as $category)
+                    @foreach($category->galleries as $gallery)
+                        <li class="b-isotope-grid__item grid-item top item{{ $category->id }}">
+                            <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset($gallery->image) }}">
+                                <img src="{{ asset($gallery->image) }}" alt="foto" />
+                                <span class="b-isotope-grid__wrap-info helper">
+                        <span class="b-isotope-grid__info"><i class="icon fa fa-search"></i></span>
+                    </span>
+                            </a>
+                        </li>
+                    @endforeach
+                @endforeach
+
             </ul>
         </div>
         <!-- end .b-isotope-->

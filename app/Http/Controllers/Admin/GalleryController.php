@@ -7,6 +7,7 @@ use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 use App\Models\Department;
 use App\Models\Gallery;
+use App\Models\GalleryCategory;
 use App\Models\Institute;
 use Illuminate\Http\Request;
 use App\Traits\FileUploader;
@@ -23,7 +24,7 @@ class GalleryController extends Controller
     public function index()
     {
         Gate::authorize('gallery.index');
-        $gallery = Gallery::withTrashed()->latest()->get();
+        $gallery = Gallery::withTrashed()->with('gallery_category')->latest()->get();
         return view('backend.gallery.index', compact('gallery'));
     }
 
@@ -33,7 +34,8 @@ class GalleryController extends Controller
     public function create()
     {
         Gate::authorize('gallery.create');
-        return view('backend.gallery.create');
+        $gallery_categories = GalleryCategory::get(['id','title']);
+        return view('backend.gallery.create',compact('gallery_categories'));
     }
 
     /**
@@ -48,8 +50,6 @@ class GalleryController extends Controller
             $file_url = $this->fileUpload($request->image, 'uploads/gallery');
             $data['image'] = $file_url;
         }
-        $data['slug'] = str_slug($request->title);
-
 
         Gallery::create($data);
 
@@ -72,10 +72,8 @@ class GalleryController extends Controller
     public function edit(Gallery $gallery)
     {
         Gate::authorize('gallery.edit');
-        $departments=Department::orderBy('name', 'ASC')->get();
-        $institutes=Institute::orderBy('name', 'ASC')->get();
-
-        return view('backend.gallery.edit', compact('departments', 'institutes','gallery'));
+        $gallery_categories = GalleryCategory::get(['id','title']);
+        return view('backend.gallery.edit', compact('gallery','gallery_categories'));
     }
 
     /**
@@ -88,16 +86,6 @@ class GalleryController extends Controller
         if ($request->image) {
             $file_url = $this->fileUpload($request->image, 'uploads/gallery', $gallery->image);
             $data['image'] = $file_url;
-        }
-        $data['slug'] = str_slug($request->title);
-
-        if ($request->department_id){
-            $data['department_id'] = $request->department_id;
-            $data['institute_id'] = null;
-        }
-        if ($request->institute_id){
-            $data['institute_id'] = $request->institute_id;
-            $data['department_id'] = null;
         }
 
         $gallery->update($data);

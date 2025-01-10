@@ -5,16 +5,9 @@
     </a>
     <ul class="nav navbar-nav">
         <li>
-            <h4><a href="#">Mobile sidebar</a></h4>
+            <h4><a href="#"></a></h4>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Home<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="home.html" tabindex="-1">Home one page</a>
-                </li>
-                <li><a href="home-2.html" tabindex="-1">Home standart</a>
-                </li>
-            </ul>
-        </li>
+        <li class=""><a class="" href="{{route('root')}}" data-toggle="">Home</a></li>
         <li><a href="repair-shop.html">Repair Shop</a>
         </li>
         <li><a href="car-rental.html">Car Rental</a>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Activity;
 use App\Models\Event;
 use App\Models\Faculty;
+use App\Models\Gallery;
+use App\Models\GalleryCategory;
 use App\Models\Institute;
 use App\Models\News;
 use App\Models\Notice;
@@ -46,6 +48,10 @@ class HomeController extends Controller
     public function root()
     {
         $data['sliders'] = Slider::where('status',1)->latest()->get();
+        $data['galleries'] = GalleryCategory::with(['galleries' => function($query) {
+            $query->where('status', 1)->latest()->take(10);
+        }])->get();
+        $data['gallery_categories'] = GalleryCategory::where('status',1)->latest()->take(5)->get();
 
 //        $data['events'] = Event::where('status',1)->latest()->limit(3)->get();
 //        $data['newses'] = News::where('status',1)->latest()->limit(6)->get();

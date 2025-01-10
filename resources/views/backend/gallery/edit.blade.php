@@ -16,7 +16,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
+            <div class="">
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-md-6">
@@ -36,17 +36,26 @@
                         @csrf
                         @method('put')
                         <div class="row">
-                            <div class="col-md-8">
-                                <div class="card">
+                            <div class="col-md-12">
+                                <div class="">
                                     <div class="card-body">
                                         <div class="new-user-info">
                                             <div class="row">
-                                                <div class="mb-3 col-md-12">
-                                                    <label for="title">{{ __('Gallery Title') }}: <strong
-                                                            class="text-danger">*</strong></label>
-                                                    <input id="title" type="text"  class="form-control @error('title') is-invalid @enderror" value="{{ $gallery->title }}" name="title" required>
-                                                    @error('title')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                <div class="mb-3">
+                                                    <label for="gallery_category_id">Gallery Category <strong class="text-danger">*</strong></label>
+                                                    <select name="gallery_category_id" id="gallery_category_id"
+                                                            class="form-control form-control-lg select2" required>
+                                                        <option value="">Select Category</option>
+                                                        @forelse($gallery_categories as $data)
+                                                            <option value="{{ $data->id }}" {{$data->id == $gallery->gallery_category_id?'selected':''}}>{{ $data->title }}</option>
+                                                        @empty
+                                                        @endforelse
+                                                    </select>
+                                                    @error('gallery_category_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -61,63 +70,28 @@
                                                     @enderror
                                                 </div>
                                             </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-
-                                        @if(auth()->user()->type === 'super_admin')
-                                            <div class="mb-3">
-                                                <label for="department">{{ __('Department') }}</label>
-                                                <select name="department_id" id="department" class="form-control form-control-lg select2">
-                                                    <option value="" selected>Select Department</option>
-                                                    @forelse($departments as $department)
-                                                        <option value="{{ $department->id }}" {{$gallery->department_id==$department->id?'selected':''}}>{{ $department->name }}</option>
-                                                    @empty
-                                                    @endforelse
-                                                </select>
-                                                @error('department_id')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="institute">{{ __('Institute') }}</label>
-                                                <select name="institute_id" id="institute" class="form-control form-control-lg select2">
-                                                    <option value="" selected>Select Institute</option>
-                                                    @forelse($institutes as $institute)
-                                                        <option value="{{ $institute->id }}" {{$gallery->institute_id==$institute->id?'selected':''}}>{{ $institute->name }}</option>
-                                                    @empty
-                                                    @endforelse
-                                                </select>
-                                                @error('institute_id')
-                                                <span class="text-danger">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                        @endif
-                                        <div class="mb-3 py-4">
-                                            <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
-                                            <div class="pretty p-icon p-round p-pulse">
-                                                <input type="radio" id="active"  name="status" value="1" {{$gallery->status=='1'?'checked':''}} />
-                                                <div class="state p-success">
-                                                    <i class="icon mdi mdi-check"></i>
-                                                    <label for="active">Published</label>
+                                            <div class="mb-3 py-4">
+                                                <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
+                                                <div class="pretty p-icon p-round p-pulse">
+                                                    <input type="radio" id="active"  name="status" value="1" {{$gallery->status=='1'?'checked':''}} />
+                                                    <div class="state p-success">
+                                                        <i class="icon mdi mdi-check"></i>
+                                                        <label for="active">Published</label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="pretty p-icon p-round p-pulse">
-                                                <input type="radio" id="inactive"   name="status" value="0" {{$gallery->status=='0'?'checked':''}}/>
-                                                <div class="state p-danger">
-                                                    <i class="icon mdi mdi-check"></i>
-                                                    <label for="inactive">Unpublished</label>
+                                                <div class="pretty p-icon p-round p-pulse">
+                                                    <input type="radio" id="inactive"   name="status" value="0" {{$gallery->status=='0'?'checked':''}}/>
+                                                    <div class="state p-danger">
+                                                        <i class="icon mdi mdi-check"></i>
+                                                        <label for="inactive">Unpublished</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="text-center my-4">
                                 <button type="submit" class="btn btn-primary rounded-1 fw-bold">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">

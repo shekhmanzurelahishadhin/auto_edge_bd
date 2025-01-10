@@ -44,7 +44,7 @@
                             @endif
                         @endif
                     </p>
-                    <h4>{{ $gallery->title }}</h4>
+                    <h4>Category: {{ $gallery->gallery_category->title }}</h4>
 
 
                 </div>

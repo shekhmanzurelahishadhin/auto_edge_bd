@@ -42,7 +42,7 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Photo</th>
-                                <th>Title</th>
+                                <th>Category</th>
                                 <th>Status</th>
                                 <th>Updated By</th>
 
@@ -60,7 +60,7 @@
                                                  width="48" class="mt-2 mr-3" alt="photo">
                                         </div>
                                     </td>
-                                    <td>{{ Str::limit( $data->title,60)  }}</td>
+                                    <td>{{ $data->gallery_category->title  }}</td>
                                     <td>
                                         @if($data->deleted_at)
                                             <span class="badge rounded-pill badge-soft-danger">Trashed</span>

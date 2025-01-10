@@ -8,30 +8,24 @@
                     <button class="menu-mobile-button visible-xs-block js-toggle-mobile-slidebar toggle-menu-button"><i class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i>
                     </button>
                     <!-- Mobile Trigger End-->
-                    <a class="navbar-brand scroll" href="home.html">
+                    <a class="navbar-brand scroll" href="{{route('root')}}">
                         <img class="normal-logo img-responsive" src="{{ asset('assets') }}/media/general/logo.png" alt="logo" />
                         <img class="scroll-logo hidden-xs img-responsive" src="{{ asset('assets') }}/media/general/logo-dark.png" alt="logo" />
                     </a>
                 </div>
                 <div class="header-navibox-3">
-                    <ul class="nav navbar-nav hidden-xs clearfix vcenter">
-                        <li>
-                            <div class="header-cart"><a href="#"><i class="icon fa fa-shopping-basket" aria-hidden="true"></i><span class="header-cart-count bg-primary">3</span></a>
-                            </div>
-                        </li>
-                        <li><a class="btn_header_search" href="#"><i class="icon fa fa-search"></i></a>
-                        </li>
-                    </ul><a class="btn btn-primary" href="home.html">sell car</a>
+{{--                    <ul class="nav navbar-nav hidden-xs clearfix vcenter">--}}
+{{--                        <li>--}}
+{{--                            <div class="header-cart"><a href="#"><i class="icon fa fa-shopping-basket" aria-hidden="true"></i><span class="header-cart-count bg-primary">3</span></a>--}}
+{{--                            </div>--}}
+{{--                        </li>--}}
+{{--                        <li><a class="btn_header_search" href="#"><i class="icon fa fa-search"></i></a>--}}
+{{--                        </li>--}}
+{{--                    </ul><a class="btn btn-primary" href="home.html">sell car</a>--}}
                 </div>
                 <div class="header-navibox-2">
                     <ul class="yamm main-menu nav navbar-nav">
-                        <li class="dropdown"><a class="dropdown-toggle" href="home.html" data-toggle="dropdown">Home<b class="caret"></b></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="home.html" tabindex="-1">Home one page</a>
-                                </li>
-                                <li><a href="home-2.html" tabindex="-1">Home standart</a>
-                                </li>
-                            </ul>
+                        <li class="dropdown"><a class="" href="{{route('root')}}" data-toggle="">Home</a>
                         </li>
                         <li><a href="repair-shop.html">Repair Shop</a>
                         </li>

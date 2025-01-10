@@ -27,31 +27,9 @@ class Gallery extends Model implements Auditable
     {
         return $this->belongsTo(Admin::class,'created_by');
     }
-
-    protected static function booted(): void
+    public function gallery_category(): BelongsTo
     {
-        if (Auth::check() && Auth::guard('admin')->check()){
-            if (Auth::guard('admin')->user()->department_id != null) {
-
-                static::creating(function ($model) {
-                    $model->department_id = Auth::guard('admin')->user()->department_id;
-                });
-
-                static::addGlobalScope('department_id', function (Builder $builder) {
-                    $builder->where('department_id', Auth::guard('admin')->user()->department_id);
-                });
-            }
-            if (Auth::guard('admin')->user()->institute_id != null) {
-
-                static::creating(function ($model) {
-                    $model->institute_id = Auth::guard('admin')->user()->institute_id;
-                });
-
-                static::addGlobalScope('institute_id', function (Builder $builder) {
-                    $builder->where('institute_id', Auth::guard('admin')->user()->institute_id);
-                });
-            }
-        }
+        return $this->belongsTo(GalleryCategory::class,'gallery_category_id');
     }
 
     public static function boot()

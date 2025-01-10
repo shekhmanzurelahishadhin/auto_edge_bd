@@ -13,18 +13,9 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->text('title');
-            $table->string('slug');
+            $table->integer('gallery_category');
             $table->text('image');
             $table->boolean('status')->default(false)->comment('0==draft & 1==published');
-            $table->foreignId('department_id')->nullable()
-                ->constrained('id')
-                ->on('departments')
-                ->cascadeOnDelete();
-            $table->foreignId('institute_id')->nullable()
-                ->constrained('id')
-                ->on('institutes')
-                ->cascadeOnDelete();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();

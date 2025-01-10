@@ -40,15 +40,25 @@
                                     <div class="card-body">
                                         <div class="new-user-info">
                                             <div class="row">
-                                                <div class="mb-3 col-md-12">
-                                                    <label for="title">{{ __('Gallery Title') }}: <strong
-                                                            class="text-danger">*</strong></label>
-                                                    <input id="title" type="text"  class="form-control @error('title') is-invalid @enderror"  value="{{ old('title') }}" name="title" required>
-                                                    @error('title')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                <div class="mb-3">
+                                                    <label for="gallery_category_id">Gallery Category <strong class="text-danger">*</strong></label>
+                                                    <select name="gallery_category_id" id="gallery_category_id"
+                                                            class="form-control form-control-lg select2" required>
+                                                        <option value="">Select Category</option>
+                                                        @forelse($gallery_categories as $data)
+                                                            <option value="{{ $data->id }}">{{ $data->title }}</option>
+                                                        @empty
+                                                        @endforelse
+                                                    </select>
+                                                    @error('gallery_category_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
                                                     @enderror
                                                 </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="mb-3">
                                                     <label for="image">Gallery Image <strong class="text-danger">* <small>(Recommended Size 1920 X 1080 | Max: 50 MB)</small></strong></label>
