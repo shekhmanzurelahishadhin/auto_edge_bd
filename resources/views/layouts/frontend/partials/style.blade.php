@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('assets') }}/css/master.css" />
+<link rel="stylesheet" href="{{ asset('assets') }}/css/custome.css" />
 <!-- SWITCHER-->
 <link href="{{ asset('assets') }}/plugins/switcher/css/switcher.css" rel="stylesheet" id="switcher-css" />
 <link href="{{ asset('assets') }}/plugins/switcher/css/color1.css" rel="alternate stylesheet" title="color1" />

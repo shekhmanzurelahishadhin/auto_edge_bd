@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AboutUs;
 use App\Models\Activity;
+use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Faculty;
 use App\Models\Gallery;
@@ -48,6 +50,8 @@ class HomeController extends Controller
     public function root()
     {
         $data['sliders'] = Slider::where('status',1)->latest()->get();
+        $data['brands'] = Brand::where('status',1)->latest()->take(6)->get();
+        $data['about'] = AboutUs::latest()->first();
         $data['galleries'] = GalleryCategory::with(['galleries' => function($query) {
             $query->where('status', 1)->latest()->take(10);
         }])->get();

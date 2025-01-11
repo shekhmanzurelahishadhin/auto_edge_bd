@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\VolumeIssueController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GalleryCategoryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\AboutUsController;
 
 
 //Language Translation
@@ -70,6 +72,12 @@ Route::resource('gallery', GalleryController::class);
 Route::post('gallery/trash/{id}', [GalleryController::class, 'trash'])->name('gallery.trash');
 Route::get('gallery/restore/{id}', [GalleryController::class, 'restore'])->name('gallery.restore');
 
+Route::resource('brand', BrandController::class);
+Route::post('brand/trash/{id}', [BrandController::class, 'trash'])->name('brand.trash');
+Route::get('brand/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
+
+Route::get('about', [AboutUsController::class, 'create'])->name('about.create');
+Route::post('about-store', [AboutUsController::class, 'store'])->name('about.store');
 
 
 Route::resource('journal', JournalController::class);
@@ -88,8 +96,8 @@ Route::get('get-issue', [VolumeIssueController::class, 'get_issue'])->name('get-
 
 
 //Organogram start
-Route::get('organogram/create', [SettingController::class, 'organogram_create'])->name('organogram.create');
-Route::post('organogram/store', [SettingController::class, 'organogram_store'])->name('organogram.store');
+Route::get('logo/create', [SettingController::class, 'logo_create'])->name('logo.create');
+Route::post('logo/store', [SettingController::class, 'logo_store'])->name('logo.store');
 //Organogram end
 
 //Act & Rules start

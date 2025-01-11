@@ -298,5 +298,36 @@ class PermissionSeeder extends Seeder
             'name' => 'Delete',
             'slug' => 'gallery.destroy',
         ]);
+        /*Brand Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Brand Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'brand.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'brand.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'brand.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'brand.destroy',
+        ]);
+        /*About us Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Amout Us Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'about.create',
+        ]);
+
     }
 }

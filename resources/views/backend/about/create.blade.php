@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('title')
-    Gallery
+    About Us
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Gallery
+            About Us
         @endslot
         @slot('sub_breadcrumb')
-            Create
+            About Us
         @endslot
     @endcomponent
     <!-- page title end-->
@@ -20,71 +20,57 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h4 class="card-title mb-0">Add New Gallery</h4>
+                            <h4 class="card-title mb-0">Add New About Us</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            @can('gallery.index')
-                                <a href="{{ route('admin.gallery.index') }}" class="btn dark-icon btn-danger"><i
-                                        class="fa fa-reply"></i> Back to list</a>
-                            @endcan
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.gallery.store') }}" method="post" id="newForm" enctype="multipart/form-data" >
+                    <form action="{{ route('admin.about.store') }}" method="post" id="newForm" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
+                            <div class="col-md-8">
+                                <div class="">
                                     <div class="card-body">
                                         <div class="new-user-info">
                                             <div class="row">
+                                                <input type="hidden" name="id" value="1">
 
                                                 <div class="mb-3">
-                                                    <label for="gallery_category_id">Gallery Category <strong class="text-danger">*</strong></label>
-                                                    <select name="gallery_category_id" id="gallery_category_id"
-                                                            class="form-control form-control-lg select2" required>
-                                                        <option value="">Select Category</option>
-                                                        @forelse($gallery_categories as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->title }}</option>
-                                                        @empty
-                                                        @endforelse
-                                                    </select>
-                                                    @error('gallery_category_id')
+                                                    <label for="short_details">About Us Short Details <strong class="text-danger">*</strong></label>
+                                                    <textarea class="form-control" name="short_details" id="short_details" cols="30" rows="10">{{$about->short_details??null}}</textarea>
+                                                    @error('short_details')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="long_details">About Us Long Details <strong class="text-danger">*</strong></label>
+                                                    <textarea class="form-control" name="long_details" id="long_details" cols="30" rows="10">{{$about->long_details??null}}</textarea>
+                                                    @error('long_details')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                     @enderror
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="row">
-                                                <div class="mb-3">
-                                                    <label for="image">Gallery Image <strong class="text-danger">* <small>(Recommended Size 100 X 80 | Max: 5 MB)</small></strong></label>
-                                                    <input class="file-upload dropify" name="image" id="image" type="file" data-allowed-file-extensions="jpg jpeg png" required>
-                                                    @error('image')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 py-4">
-                                                <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
-                                                <div class="pretty p-icon p-round p-pulse">
-                                                    <input type="radio" id="active"  name="status" value="1" checked/>
-                                                    <div class="state p-success">
-                                                        <i class="icon mdi mdi-check"></i>
-                                                        <label for="active">Published</label>
-                                                    </div>
-                                                </div>
-                                                <div class="pretty p-icon p-round p-pulse">
-                                                    <input type="radio" id="inactive"  name="status" value="0" />
-                                                    <div class="state p-danger">
-                                                        <i class="icon mdi mdi-check"></i>
-                                                        <label for="inactive">Unpublished</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="mb-3">
+                                            <label for="image">About Us Image <strong class="text-danger">* <small>(Recommended Size 200 X 200 | Max: 5 MB)</small></strong></label>
+                                            <input class="file-upload dropify" name="image" id="image" type="file" data-allowed-file-extensions="jpg jpeg png" data-default-file="{{ isset($about->image) != null ? asset($about->image) : '' }}">
+                                            @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -130,15 +116,23 @@
             $('.dropify').dropify();
         });
 
+        $('#short_details').summernote({
+            placeholder: 'Write Short Details',
+            tabsize: 2,
+            height: 180
+        });
+        $('#long_details').summernote({
+            placeholder: 'Write Long Details',
+            tabsize: 2,
+            height: 180
+        });
+
         $().ready(function() {
             var validator = $("#newForm").validate({
                 ignore: ".ql-container *",
                 messages: {
-                    gallery_category_id: {
-                        required: 'Gallery Category is required'
-                    },
                     image: {
-                        required: 'Gallery image is required'
+                        required: 'About Us image is required'
                     }
                 }
             });

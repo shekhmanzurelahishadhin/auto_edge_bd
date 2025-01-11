@@ -1,14 +1,14 @@
 <div data-off-canvas="mobile-slidebar left overlay">
     <a class="navbar-brand scroll" href="home.html">
-        <img class="normal-logo img-resonsive visible-xs visible-sm" src="{{ asset('assets') }}/media/general/logo.png" alt="logo" />
-        <img class="scroll-logo img-resonsive hidden-xs hidden-sm" src="{{ asset('assets') }}/media/general/logo-dark.png" alt="logo" />
+        <img class="normal-logo img-resonsive visible-xs visible-sm" src="{{ asset($logo->footer_logo??'') }}" alt="logo" />
+        <img class="scroll-logo img-resonsive hidden-xs hidden-sm" src="{{ asset($logo->footer_logo??'') }}" alt="logo" />
     </a>
     <ul class="nav navbar-nav">
         <li>
             <h4><a href="#"></a></h4>
         </li>
         <li class=""><a class="" href="{{route('root')}}" data-toggle="">Home</a></li>
-        <li><a href="repair-shop.html">Repair Shop</a>
+        <li><a href="{{route('about')}}">About Us</a>
         </li>
         <li><a href="car-rental.html">Car Rental</a>
         </li>

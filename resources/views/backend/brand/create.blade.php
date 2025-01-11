@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('title')
-    Organogram
+    Brand
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Organogram
+            Brand
         @endslot
         @slot('sub_breadcrumb')
-            Create
+            Brand
         @endslot
     @endcomponent
     <!-- page title end-->
@@ -20,30 +20,62 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h4 class="card-title mb-0">Add New Organogram</h4>
+                            <h4 class="card-title mb-0">Add New Brand</h4>
                         </div>
                         <div class="col-md-6 text-end">
-
+                            @can('brand.index')
+                                <a href="{{ route('admin.brand.index') }}" class="btn dark-icon btn-danger"><i
+                                        class="fa fa-reply"></i> Back to list</a>
+                            @endcan
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.organogram.store') }}" method="post" id="newForm" enctype="multipart/form-data" >
+                    <form action="{{ route('admin.brand.store') }}" method="post" id="newForm" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="new-user-info">
+                                            <div class="row">
+
+                                                <div class="mb-3">
+                                                    <label for="title">Brand Title <strong class="text-danger">*</strong></label>
+                                                    <input type="text" class="form-control" name="title" id="title" required>
+                                                    @error('title')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
 
                                             <div class="row">
                                                 <div class="mb-3">
-                                                    <label for="image">Ogranogram Image <strong class="text-danger">* <small>(Recommended Size 1920 X 1080 | Max: 50 MB)</small></strong></label>
-                                                    <input class="file-upload dropify" name="image" id="image" type="file" data-allowed-file-extensions="jpg jpeg png" required data-default-file="{{ $image != null ? asset($image) : '' }}">
+                                                    <label for="image">Brand Image <strong class="text-danger">* <small>(Recommended Size 100 X 100 | Max: 5 MB)</small></strong></label>
+                                                    <input class="file-upload dropify" name="image" id="image" type="file" data-allowed-file-extensions="jpg jpeg png" required>
                                                     @error('image')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 py-4">
+                                                <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
+                                                <div class="pretty p-icon p-round p-pulse">
+                                                    <input type="radio" id="active"  name="status" value="1" checked/>
+                                                    <div class="state p-success">
+                                                        <i class="icon mdi mdi-check"></i>
+                                                        <label for="active">Published</label>
+                                                    </div>
+                                                </div>
+                                                <div class="pretty p-icon p-round p-pulse">
+                                                    <input type="radio" id="inactive"  name="status" value="0" />
+                                                    <div class="state p-danger">
+                                                        <i class="icon mdi mdi-check"></i>
+                                                        <label for="inactive">Unpublished</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,12 +84,12 @@
                             </div>
 
                             <div class="text-center my-4">
-                                <button type="submit" id="submit" class="btn btn-primary rounded-1 fw-bold"><svg
+                                <button type="submit" class="btn btn-primary rounded-1 fw-bold"><svg
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                                         <path
                                             d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
                                             fill="rgba(255,255,255,1)"></path>
-                                    </svg> SAVE</button>
+                                    </svg> ADD NEW</button>
                             </div>
                         </div>
                     </form>
@@ -96,8 +128,11 @@
             var validator = $("#newForm").validate({
                 ignore: ".ql-container *",
                 messages: {
+                    title: {
+                        required: 'Brand title is required'
+                    },
                     image: {
-                        required: 'Ogranogram image is required'
+                        required: 'Brand image is required'
                     }
                 }
             });

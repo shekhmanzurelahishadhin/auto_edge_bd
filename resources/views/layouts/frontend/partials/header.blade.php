@@ -9,8 +9,8 @@
                     </button>
                     <!-- Mobile Trigger End-->
                     <a class="navbar-brand scroll" href="{{route('root')}}">
-                        <img class="normal-logo img-responsive" src="{{ asset('assets') }}/media/general/logo.png" alt="logo" />
-                        <img class="scroll-logo hidden-xs img-responsive" src="{{ asset('assets') }}/media/general/logo-dark.png" alt="logo" />
+                        <img class="normal-logo img-responsive" src="{{ asset($logo->logo??'') }}" alt="logo" />
+                        <img class="scroll-logo hidden-xs img-responsive" src="{{ asset($logo->logo??'') }}" alt="logo" />
                     </a>
                 </div>
                 <div class="header-navibox-3">
@@ -27,7 +27,7 @@
                     <ul class="yamm main-menu nav navbar-nav">
                         <li class="dropdown"><a class="" href="{{route('root')}}" data-toggle="">Home</a>
                         </li>
-                        <li><a href="repair-shop.html">Repair Shop</a>
+                        <li><a href="{{route('about')}}">About Us</a>
                         </li>
                         <li><a href="car-rental.html">Car Rental</a>
                         </li>

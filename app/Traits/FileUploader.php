@@ -24,7 +24,7 @@ trait FileUploader
             $file_full_name = $file_name.'.'.$ext;
             $upload_path = $location.'/';
             $file_url = $upload_path.$file_full_name;
-            if (isset($updateFile)) {
+            if (isset($updateFile) && file_exists($updateFile)) {
                 $this->unlink($updateFile);
             }
             $file->move($upload_path, $file_full_name);

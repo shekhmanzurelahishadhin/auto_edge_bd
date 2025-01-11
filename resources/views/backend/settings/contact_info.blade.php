@@ -57,16 +57,6 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="mb-3 col-md-12">
-                                                    <label for="fax">{{ __('Fax') }}: <strong
-                                                            class="text-danger">*</strong></label>
-                                                    <input id="fax" type="text"  class="form-control @error('fax') is-invalid @enderror"  value="{{ $values['fax']??old('fax') }}" name="fax" required>
-                                                    @error('fax')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="mb-3">
                                                     <label for="website_address">{{ __('Address') }}: <strong
                                                             class="text-danger">*</strong></label>
@@ -74,6 +64,18 @@
                                                               class="form-control @error('website_address') is-invalid @enderror"
                                                               name="website_address" required>{{$values['address']??null}}</textarea>
                                                     @error('website_address')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <label for="footer_details">{{ __('Footer Details') }}: <strong
+                                                            class="text-danger">*</strong></label>
+                                                    <textarea id="footer_details" type="text"
+                                                              class="form-control @error('footer_details') is-invalid @enderror"
+                                                              name="footer_details" required>{{$values['footer_details']??null}}</textarea>
+                                                    @error('footer_details')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -131,14 +133,14 @@
                     website_address: {
                         required: 'Address is required'
                     },
+                    footer_details: {
+                        required: 'Details is required'
+                    },
                     phone: {
                         required: 'Phone number is required'
                     },
                     email: {
                         required: 'Email is required'
-                    },
-                    fax: {
-                        required: 'Fax is required'
                     }
                 }
             });

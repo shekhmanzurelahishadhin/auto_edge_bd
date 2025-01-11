@@ -1,0 +1,39 @@
+
+
+/* Default padding for large screens (applied by your existing rule) */
+.about-us-img-section {
+    padding-top: 120px !important;
+}
+
+/* For small monitors (≥768px and <992px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    .about-us-img-section {
+        padding-top: 80px !important;
+    }
+}
+
+/* For tablets and large mobile devices (≥576px and <768px) */
+@media (max-width: 767px) and (min-width: 576px) {
+    .about-us-img-section {
+        padding-top: 60px !important;
+    }
+    .about-us-img-section img{
+        max-width: 600px;
+    }
+}
+
+/* For mobile devices (<576px) */
+@media (max-width: 575px) {
+    .about-us-img-section {
+        padding-top: 40px !important;
+    }
+    .about-us-img-section img{
+        max-width: 400px;
+    }
+}
+@media (max-width: 767px) {
+    .footer .btn-up2 {
+        bottom: 150px;
+        right: 0;
+    }
+}

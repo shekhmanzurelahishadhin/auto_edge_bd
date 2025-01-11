@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    Gallery
+    Site Logo & Page Banner
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Gallery
+            Site Logo & Page Banner
         @endslot
         @slot('sub_breadcrumb')
             Create
@@ -20,19 +20,16 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h4 class="card-title mb-0">Add New Gallery</h4>
+                            <h4 class="card-title mb-0">Add New Site Logo & Page Banner</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            @can('gallery.index')
-                                <a href="{{ route('admin.gallery.index') }}" class="btn dark-icon btn-danger"><i
-                                        class="fa fa-reply"></i> Back to list</a>
-                            @endcan
+
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.gallery.store') }}" method="post" id="newForm" enctype="multipart/form-data" >
+                    <form action="{{ route('admin.logo.store') }}" method="post" id="newForm" enctype="multipart/form-data" >
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -40,49 +37,39 @@
                                     <div class="card-body">
                                         <div class="new-user-info">
                                             <div class="row">
-
                                                 <div class="mb-3">
-                                                    <label for="gallery_category_id">Gallery Category <strong class="text-danger">*</strong></label>
-                                                    <select name="gallery_category_id" id="gallery_category_id"
-                                                            class="form-control form-control-lg select2" required>
-                                                        <option value="">Select Category</option>
-                                                        @forelse($gallery_categories as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->title }}</option>
-                                                        @empty
-                                                        @endforelse
-                                                    </select>
-                                                    @error('gallery_category_id')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="mb-3">
-                                                    <label for="image">Gallery Image <strong class="text-danger">* <small>(Recommended Size 100 X 80 | Max: 5 MB)</small></strong></label>
-                                                    <input class="file-upload dropify" name="image" id="image" type="file" data-allowed-file-extensions="jpg jpeg png" required>
-                                                    @error('image')
+                                                    <label for="site_title">Site Title <strong class="text-danger">*</strong></label>
+                                                    <input class="form-control" value="{{$logo->site_title??null}}" name="site_title" id="site_title" type="text">
+                                                    @error('site_title')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="mb-3 py-4">
-                                                <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
-                                                <div class="pretty p-icon p-round p-pulse">
-                                                    <input type="radio" id="active"  name="status" value="1" checked/>
-                                                    <div class="state p-success">
-                                                        <i class="icon mdi mdi-check"></i>
-                                                        <label for="active">Published</label>
-                                                    </div>
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <label for="logo">Logo Image <strong class="text-danger">* <small>(Recommended Size 200 X 50 | Max: 5 MB)</small></strong></label>
+                                                    <input class="file-upload dropify" name="logo" id="logo" type="file" data-allowed-file-extensions="jpg jpeg png" data-default-file="{{ isset($logo->logo) != null ? asset($logo->logo) : '' }}">
+                                                    @error('logo')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
-                                                <div class="pretty p-icon p-round p-pulse">
-                                                    <input type="radio" id="inactive"  name="status" value="0" />
-                                                    <div class="state p-danger">
-                                                        <i class="icon mdi mdi-check"></i>
-                                                        <label for="inactive">Unpublished</label>
-                                                    </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <label for="footer_logo">Dark Logo Image <strong class="text-danger">* <small>(Recommended Size 200 X 50 | Max: 5 MB)</small></strong></label>
+                                                    <input class="file-upload dropify" name="footer_logo" id="footer_logo" type="file" data-allowed-file-extensions="jpg jpeg png" data-default-file="{{ isset($logo->footer_logo) != null ? asset($logo->footer_logo) : '' }}">
+                                                    @error('logo')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <label for="page_banner">Page Banner <strong class="text-danger">* <small>(Recommended Size 1900 X 200 | Max: 10 MB)</small></strong></label>
+                                                    <input class="file-upload dropify" name="page_banner" id="page_banner" type="file" data-allowed-file-extensions="jpg jpeg png" data-default-file="{{ isset($logo->page_banner) != null ? asset($logo->page_banner) : '' }}">
+                                                    @error('page_banner')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -91,12 +78,12 @@
                             </div>
 
                             <div class="text-center my-4">
-                                <button type="submit" class="btn btn-primary rounded-1 fw-bold"><svg
+                                <button type="submit" id="submit" class="btn btn-primary rounded-1 fw-bold"><svg
                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                                         <path
                                             d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
                                             fill="rgba(255,255,255,1)"></path>
-                                    </svg> ADD NEW</button>
+                                    </svg> SAVE</button>
                             </div>
                         </div>
                     </form>
@@ -130,16 +117,17 @@
             $('.dropify').dropify();
         });
 
+
         $().ready(function() {
             var validator = $("#newForm").validate({
                 ignore: ".ql-container *",
                 messages: {
-                    gallery_category_id: {
-                        required: 'Gallery Category is required'
+                    logo: {
+                        required: 'Logo image is required'
                     },
-                    image: {
-                        required: 'Gallery image is required'
-                    }
+                    page_banner: {
+                        required: 'Page Banner image is required'
+                    },
                 }
             });
             $(".cancel").click(function() {

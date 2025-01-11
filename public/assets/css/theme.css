@@ -1393,7 +1393,7 @@ blockquote cite {
 }
 
 .b-about-main {
-  margin-top: 60px;
+  /*margin-top: 60px;*/
   padding-top: 81px;
   padding-bottom: 160px;
 }
@@ -2098,9 +2098,9 @@ blockquote cite {
   -webkit-transition: all .3s;
   transition: all .3s;
   vertical-align: middle;
-  opacity: .5;
-  -webkit-filter: grayscale(1);
-          filter: grayscale(1);
+  /*opacity: .5;*/
+  /*-webkit-filter: grayscale(1);*/
+  /*        filter: grayscale(1);*/
 }
 
 .b-brands .b-brands__img:hover {
@@ -5346,6 +5346,19 @@ blockquote cite {
   text-align: center;
   text-transform: uppercase;
   color: #888;
+}
+
+.footer .btn-up2 {
+    position: absolute;
+    right: 45px;
+    bottom: 100px;
+    width: 50px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    color: #888;
 }
 
 .footer .btn-up:after, .footer .btn-up:before {

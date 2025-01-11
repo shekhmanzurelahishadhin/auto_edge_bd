@@ -61,7 +61,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3">
-                                                    <label for="image">Gallery Image <strong class="text-danger">* <small>(Recommended Size 1920 X 1080 | Max: 50 MB)</small></strong></label>
+                                                    <label for="image">Gallery Image <strong class="text-danger">* <small>(Recommended Size 100 X 80 | Max: 5 MB)</small></strong></label>
                                                     <input class="file-upload dropify" name="image" type="file"
                                                            data-allowed-file-extensions="jpg jpeg png"
                                                            data-default-file="{{ $gallery->image != null ? asset($gallery->image) : '' }}">
@@ -132,47 +132,15 @@
         });
 
 
-        /*if department select office & institute are disabled*/
-        $('#department').on('change',function (){
-            let department = $(this).val()
-
-            if (department > 0){
-                var institute = $('#institute');
-                institute.empty();
-                var option = '<option value="" selected disabled>Select Institute</option>';
-                institute.append(option);
-
-                $('#institute').attr('disabled',true);
-
-
-            }else{
-
-                $('#institute').attr('disabled',false)
-            }
-        });
-        /*if office select department & institute are disabled*/
-        $('#institute').on('change',function (){
-            let institute = $(this).val()
-            if (institute>0){
-                var department = $('#department');
-                department.empty();
-                var option = '<option value="" selected disabled>Select Department</option>';
-                department.append(option);
-
-                $('#department').attr('disabled',true)
-
-            }else{
-                $('#department').attr('disabled',false)
-
-            }
-        });
-
         $().ready(function() {
             var validator = $("#newForm").validate({
                 ignore: ".ql-container *",
                 messages: {
-                    title: {
-                        required: 'Gallery title is required'
+                    gallery_category_id: {
+                        required: 'Gallery Category is required'
+                    },
+                    image: {
+                        required: 'Gallery image is required'
                     }
                 }
             });

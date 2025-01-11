@@ -23,7 +23,7 @@ class StoreGalleryRequest extends FormRequest
     {
         return [
             'gallery_category_id' => ['required', 'int'],
-            'image' => 'required|mimes:jgp,jpeg,png|max:50000',
+            'image' => 'required|mimes:jgp,jpeg,png|max:5000',
         ];
     }
 }

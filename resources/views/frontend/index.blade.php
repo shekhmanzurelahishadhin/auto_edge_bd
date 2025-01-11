@@ -28,36 +28,13 @@
     <!-- end .section-news-->
     <div class="section-default">
         <div class="b-brands owl-carousel owl-theme enable-owl-carousel" data-min768="2" data-min992="5" data-min1200="6" data-margin="30" data-pagination="false" data-navigation="true" data-auto-play="4000" data-stop-on-hover="true">
+            @foreach($brands as $brand)
             <div class="b-brands__item">
                 <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset('assets') }}/media/components/b-brands/1.jpg" alt="foto" />
+                    <img class="img-responsive" src="{{ asset($brand->image) }}" alt="foto" />
                 </div>
             </div>
-            <div class="b-brands__item">
-                <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset('assets') }}/media/components/b-brands/2.jpg" alt="foto" />
-                </div>
-            </div>
-            <div class="b-brands__item">
-                <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset('assets') }}/media/components/b-brands/3.jpg" alt="foto" />
-                </div>
-            </div>
-            <div class="b-brands__item">
-                <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset('assets') }}/media/components/b-brands/4.jpg" alt="foto" />
-                </div>
-            </div>
-            <div class="b-brands__item">
-                <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset('assets') }}/media/components/b-brands/5.jpg" alt="foto" />
-                </div>
-            </div>
-            <div class="b-brands__item">
-                <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset('assets') }}/media/components/b-brands/6.jpg" alt="foto" />
-                </div>
-            </div>
+            @endforeach
         </div>
         <!-- end .b-brands-->
     </div>
@@ -71,17 +48,13 @@
                         <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
                         <div class="ui-decor"></div>
                         <div class="b-about-main">
-                            <div class="b-about-main__title">We are a Trusted Name in Auto Industry</div>
-                            <div class="b-about-main__subtitle">Visited by Million of Car Buyers Every Month!</div>
-                            <p>MotorLand is aliquip exd ea consequat duis lorem ipsum dolor sit amet consectetur dipis icing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
-                            <p>Slamco laboris nisi ut aliquip ex ea comdo consequat uis aute irure dolor raeprehenderit voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                            <div class="b-about-main__btns"><a class="btn btn-dark" href="home.html">Our partners</a><a class="btn btn-primary" href="home.html">learn more</a>
-                            </div>
+                            {!! $about->short_details??null !!}
                         </div>
+
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <img src="{{ asset('assets') }}/media/components/b-main-slider/2.jpg" class="" alt="">
+                <div class="col-lg-4 about-us-img-section">
+                    <img src="{{ asset(isset($about->image)?$about->image:'') }}" class="" alt="">
                 </div>
             </div>
         </div>
