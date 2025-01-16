@@ -8,5 +8,12 @@
 <link href="{{ asset('assets') }}/plugins/switcher/css/color4.css" rel="alternate stylesheet" title="color4" />
 <link rel="icon" type="image/x-icon" href="{{ asset('assets') }}/car.png" />
 
+<style>
+    .active-header{
+        background-color: #d01818;
+        color: white !important;
+    }
+</style>
+
 @stack('css')
 @stack('customCss')

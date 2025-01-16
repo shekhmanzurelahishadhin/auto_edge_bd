@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\GalleryCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\NewsController;
+
 
 
 //Language Translation
@@ -79,6 +81,9 @@ Route::get('brand/restore/{id}', [BrandController::class, 'restore'])->name('bra
 Route::get('about', [AboutUsController::class, 'create'])->name('about.create');
 Route::post('about-store', [AboutUsController::class, 'store'])->name('about.store');
 
+Route::resource('news', NewsController::class);
+Route::post('news/trash/{id}', [NewsController::class, 'trash'])->name('news.trash');
+Route::get('news/restore/{id}', [NewsController::class, 'restore'])->name('news.restore');
 
 Route::resource('journal', JournalController::class);
 Route::post('journal/trash/{id}', [JournalController::class, 'trash'])->name('journal.trash');

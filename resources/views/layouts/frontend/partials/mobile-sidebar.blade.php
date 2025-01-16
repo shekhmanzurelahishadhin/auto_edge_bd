@@ -10,7 +10,7 @@
         <li class=""><a class="" href="{{route('root')}}" data-toggle="">Home</a></li>
         <li><a href="{{route('about')}}">About Us</a>
         </li>
-        <li><a href="car-rental.html">Car Rental</a>
+        <li><a href="{{route('news')}}">News</a>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Listings<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">

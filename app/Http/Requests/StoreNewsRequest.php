@@ -23,8 +23,8 @@ class StoreNewsRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'short_description' => 'required',
             'description' => 'required',
-            'published_at' => 'required',
             'status' => 'required',
             'image' => 'required|mimes:jpg,jpeg,png,webp|max:50000',
         ];

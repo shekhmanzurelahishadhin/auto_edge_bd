@@ -49,16 +49,15 @@ class HomeController extends Controller
 
     public function root()
     {
-        $data['sliders'] = Slider::where('status',1)->latest()->get();
-        $data['brands'] = Brand::where('status',1)->latest()->take(6)->get();
+        $data['sliders'] = Slider::where('status',1)->latest()->get(['id','image','title']);
+        $data['newses'] = News::where('status',1)->with('admin_created:id,name,image')->latest()->limit(6)->get(['id','title','slug','short_description','image','created_by']);
+//        dd($data['newses']);
+        $data['brands'] = Brand::where('status',1)->latest()->take(6)->get(['id','image']);
         $data['about'] = AboutUs::latest()->first();
         $data['galleries'] = GalleryCategory::with(['galleries' => function($query) {
             $query->where('status', 1)->latest()->take(10);
         }])->get();
-        $data['gallery_categories'] = GalleryCategory::where('status',1)->latest()->take(5)->get();
-
-//        $data['events'] = Event::where('status',1)->latest()->limit(3)->get();
-//        $data['newses'] = News::where('status',1)->latest()->limit(6)->get();
+        $data['gallery_categories'] = GalleryCategory::where('status',1)->latest()->take(5)->get(['id','title']);
 
         return view('frontend.index',$data);
     }

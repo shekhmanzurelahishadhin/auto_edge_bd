@@ -178,6 +178,7 @@
                          Request::is('admin/brand*')||
                          Request::is('admin/about*')||
                          Request::is('admin/logo*')||
+                         Request::is('admin/news*')||
                          Request::is('admin/act-rule*')||
                          Request::is('admin/map-details*')||
                          Request::is('admin/resource*'))
@@ -233,6 +234,13 @@
                                         <a href="{{ route('admin.logo.create') }}"
                                            class="nav-link {{ Request::is('admin/logo*') ? 'active' : '' }}"
                                            data-key="t-basic-tables">Site Logo</a>
+                                    </li>
+                                @endcan
+                                @can('news.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.news.index') }}"
+                                           class="nav-link {{ Request::is('admin/news*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">News</a>
                                     </li>
                                 @endcan
                                 @can('settings.index')

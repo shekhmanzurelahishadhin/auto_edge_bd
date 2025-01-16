@@ -17,6 +17,7 @@ use App\Models\InstitutionalMember;
 use App\Models\LibraryInfo;
 use App\Models\Logo;
 use App\Models\Member;
+use App\Models\News;
 use App\Models\PostGraduate;
 use App\Models\Publication;
 use App\Models\ResourceInfo;
@@ -46,6 +47,22 @@ class SinglePageController extends Controller
         $data['banner'] = $banner->page_banner;
 
         return view('frontend.about',$data);
+    }
+    public function news()
+    {
+        $data['newses'] = News::where('status',1)->with('admin_created:id,name,image')->latest()->select('id','title','slug','short_description','image','created_by')->paginate(10);
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+
+        return view('frontend.news',$data);
+    }
+
+    public function news_show($newsSlug)
+    {
+        $data['news'] = News::where('status',1)->where('slug',$newsSlug)->first();
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        return view('frontend.news.show', $data);
     }
 
     public function contact()

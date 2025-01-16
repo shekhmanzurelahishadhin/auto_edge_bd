@@ -15,18 +15,11 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('slug');
+            $table->text('short_description');
             $table->longText('description');
             $table->string('image');
-            $table->date('published_at');
+            $table->date('published_at')->nullable();
             $table->boolean('status')->default(false)->comment('0==draft & 1==published');
-            $table->foreignId('department_id')->nullable()
-                ->constrained('id')
-                ->on('departments')
-                ->cascadeOnDelete();
-            $table->foreignId('institute_id')->nullable()
-                ->constrained('id')
-                ->on('institutes')
-                ->cascadeOnDelete();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();

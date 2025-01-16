@@ -6,35 +6,41 @@
         <div class="slider-pro" id="main-slider" data-slider-width="100%" data-slider-height="700px" data-slider-arrows="true" data-slider-buttons="false">
             <div class="sp-slides">
 
-                @foreach($sliders as $slider)
-                    <div class="sp-slide">
-                        <img class="sp-image" src="{{ asset($slider->image??null) }}"
-                             alt="slider"/>
-                        @if(isset($slider->title))
-                        <div class="main-slider__wrap sp-layer" data-width="" data-position="centerLeft"
-                             data-horizontal="62%" data-show-transition="left" data-hide-transition="left"
-                             data-show-duration="2000" data-show-delay="1200" data-hide-delay="400">
-                            <div class="main-slider__title"><span class="main-slider__label bg-primary"></span>
-                            </div>
-                            <div class="main-slider__subtitle">{{$slider->title??null}}</div>
+                @if(isset($sliders))
+                    @foreach($sliders as $slider)
+                        <div class="sp-slide">
+                            <img class="sp-image" src="{{ asset($slider->image??null) }}"
+                                 alt="slider"/>
+                            @if(isset($slider->title))
+                                <div class="main-slider__wrap sp-layer" data-width="" data-position="centerLeft"
+                                     data-horizontal="62%" data-show-transition="left" data-hide-transition="left"
+                                     data-show-duration="2000" data-show-delay="1200" data-hide-delay="400">
+                                    <div class="main-slider__title"><span class="main-slider__label bg-primary"></span>
+                                    </div>
+                                    <div class="main-slider__subtitle">{{$slider->title??null}}</div>
+                                </div>
+                            @endif
                         </div>
-                        @endif
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
     <!-- end .main-slider-->
     <!-- end .section-news-->
     <div class="section-default">
-        <div class="b-brands owl-carousel owl-theme enable-owl-carousel" data-min768="2" data-min992="5" data-min1200="6" data-margin="30" data-pagination="false" data-navigation="true" data-auto-play="4000" data-stop-on-hover="true">
-            @foreach($brands as $brand)
-            <div class="b-brands__item">
-                <div class="b-brands__img">
-                    <img class="img-responsive" src="{{ asset($brand->image) }}" alt="foto" />
-                </div>
-            </div>
-            @endforeach
+        <div class="b-brands owl-carousel owl-theme enable-owl-carousel" data-min768="2" data-min992="5"
+             data-min1200="6" data-margin="30" data-pagination="false" data-navigation="true" data-auto-play="4000"
+             data-stop-on-hover="true">
+            @if(isset($brands))
+                @foreach($brands as $brand)
+                    <div class="b-brands__item">
+                        <div class="b-brands__img">
+                            <img class="img-responsive" src="{{ asset($brand->image) }}" alt="foto"/>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
         <!-- end .b-brands-->
     </div>
@@ -240,30 +246,32 @@
                         <ul class="b-isotope-filter list-inline">
                             <li class="current"><a href="#" data-filter="*">all</a>
                             </li>
-                            @foreach($gallery_categories as $category)
-                            <li><a href="#" data-filter=".item{{$category->id}}">{{$category->title}}</a>
-                            </li>
-                            @endforeach
+                            @if(isset($gallery_categories))
+                                @foreach($gallery_categories as $category)
+                                    <li><a href="#" data-filter=".item{{$category->id}}">{{$category->title}}</a>
+                                    </li>
+                                @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
             </div>
             <ul class="b-isotope-grid grid list-unstyled">
                 <li class="grid-sizer"></li>
-
-                @foreach($galleries as $category)
-                    @foreach($category->galleries as $gallery)
-                        <li class="b-isotope-grid__item grid-item top item{{ $category->id }}">
-                            <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset($gallery->image) }}">
-                                <img src="{{ asset($gallery->image) }}" alt="foto" />
-                                <span class="b-isotope-grid__wrap-info helper">
+                @if($galleries)
+                    @foreach($galleries as $category)
+                        @foreach($category->galleries as $gallery)
+                            <li class="b-isotope-grid__item grid-item top item{{ $category->id }}">
+                                <a class="b-isotope-grid__inner js-zoom-images" href="{{ asset($gallery->image) }}">
+                                    <img src="{{ asset($gallery->image) }}" alt="foto"/>
+                                    <span class="b-isotope-grid__wrap-info helper">
                         <span class="b-isotope-grid__info"><i class="icon fa fa-search"></i></span>
                     </span>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        @endforeach
                     @endforeach
-                @endforeach
-
+                @endif
             </ul>
         </div>
         <!-- end .b-isotope-->
@@ -280,229 +288,48 @@
                             <div class="ui-subtitle-block">Tempor incididunt labore dolore magna clium fugiat alique</div>
                             <div class="ui-decor"></div>
                         </div>
-                        <div class="carousel-news owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel" data-min768="2" data-min992="3" data-min1200="3" data-margin="30" data-pagination="false" data-navigation="true" data-auto-play="4000" data-stop-on-hover="true">
-                            <section class="b-post b-post-1 clearfix">
-                                <div class="entry-media">
-                                    <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/360x250/1.jpg" alt="Foto" />
-                                </div>
-                                <div class="entry-main">
-                                    <div class="entry-header">
-                                        <div class="entry-meta">
-                                            <div class="entry-meta__face">
-                                                <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/face/76x76_1.jpg" alt="face" />
-                                            </div><span class="entry-meta__item">Post by<a class="entry-meta__link" href="blog-main.html"> Thomas Neil</a></span><a class="entry-meta__categorie" href="blog-main.html"><strong>Ford News</strong></a>
+                        <div class="carousel-news owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel"
+                             data-min768="2" data-min992="3" data-min1200="3" data-margin="30" data-pagination="false"
+                             data-navigation="true" data-auto-play="4000" data-stop-on-hover="true">
+
+                            @if($newses)
+                                @foreach($newses as $news)
+                                    <section class="b-post b-post-1 clearfix">
+                                        <div class="entry-media">
+                                            <img class="img-responsive"
+                                                 src="{{ isset($news->image)?asset($news->image):'' }}"
+                                                 alt="Foto"/>
                                         </div>
-                                        <h2 class="entry-title"><a href="blog-post.html">Ford Motors overhauled its design team </a></h2>
-                                    </div>
-                                    <div class="entry-content">
-                                        <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur ipsum doloe amet consecteur adipisicing elit.</p>
-                                    </div>
-                                    <div class="entry-footer">
-                                        <div class="entry-footer__inner">
-                                            <div class="b-post-social">SHARE
-                                                <ul class="b-post-social__list list-inline">
-                                                    <li><a href="twitter.html"><i class="icon fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li><a href="facebook.html"><i class="icon fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="plus.google.html"><i class="icon fa fa-google-plus"></i></a>
-                                                    </li>
-                                                    <li><a href="pinterest.html"><i class="icon fa fa-pinterest-p"></i></a>
-                                                    </li>
-                                                </ul>
+                                        <div class="entry-main">
+                                            <div class="entry-header">
+                                                <div class="entry-meta">
+                                                    <div class="entry-meta__face">
+                                                        <img class="img-responsive"
+                                                             src="{{ isset($news->admin_created->image)?asset($news->admin_created->image):Avatar::create($news->admin_created->name)->toBase64() }}"
+                                                             alt="face"/>
+                                                    </div>
+                                                    <span class="entry-meta__item">Post by<a class="entry-meta__link"
+                                                                                             href="{{route('news.show',$news->slug)}}"> {{$news->admin_created->name??''}}</a></span>
+                                                </div>
+                                                <h2 class="entry-title"><a href="{{route('news.show',$news->slug)}}">{{$news->title??''}}</a></h2>
                                             </div>
-                                            <div class="entry-meta"><span class="entry-meta__item"><i class="entry-meta__icon fa fa-heart"></i>300</span>
+                                            <div class="entry-content">
+                                                <p>{{$news->short_description??''}}</p>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end .post-->
-                            <section class="b-post b-post-1 clearfix">
-                                <div class="entry-media">
-                                    <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/360x250/2.jpg" alt="Foto" />
-                                </div>
-                                <div class="entry-main">
-                                    <div class="entry-header">
-                                        <div class="entry-meta">
-                                            <div class="entry-meta__face">
-                                                <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/face/76x76_2.jpg" alt="face" />
-                                            </div><span class="entry-meta__item">Post by<a class="entry-meta__link" href="blog-main.html"> Thomas Neil</a></span><a class="entry-meta__categorie" href="blog-main.html"><strong>Driving</strong></a>
-                                        </div>
-                                        <h2 class="entry-title"><a href="blog-post.html">Self-driving legislation sets in the motion</a></h2>
-                                    </div>
-                                    <div class="entry-content">
-                                        <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur ipsum doloe amet consecteur adipisicing elit.</p>
-                                    </div>
-                                    <div class="entry-footer">
-                                        <div class="entry-footer__inner">
-                                            <div class="b-post-social">SHARE
-                                                <ul class="b-post-social__list list-inline">
-                                                    <li><a href="twitter.html"><i class="icon fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li><a href="facebook.html"><i class="icon fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="plus.google.html"><i class="icon fa fa-google-plus"></i></a>
-                                                    </li>
-                                                    <li><a href="pinterest.html"><i class="icon fa fa-pinterest-p"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-meta"><span class="entry-meta__item"><i class="entry-meta__icon fa fa-heart"></i>205</span>
+                                            <div class="entry-footer">
+                                                <div class="entry-footer__inner">
+                                                    <div class="b-post-social">
+
+                                                    </div>
+                                                    <div class="entry-meta"><span class="entry-meta__item"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end .post-->
-                            <section class="b-post b-post-1 clearfix">
-                                <div class="entry-media">
-                                    <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/360x250/3.jpg" alt="Foto" />
-                                </div>
-                                <div class="entry-main">
-                                    <div class="entry-header">
-                                        <div class="entry-meta">
-                                            <div class="entry-meta__face">
-                                                <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/face/76x76_3.jpg" alt="face" />
-                                            </div><span class="entry-meta__item">Post by<a class="entry-meta__link" href="blog-main.html"> Thomas Neil</a></span><a class="entry-meta__categorie" href="blog-main.html"><strong>What’s New</strong></a>
-                                        </div>
-                                        <h2 class="entry-title"><a href="blog-post.html">What's new coming from the automakers in future</a></h2>
-                                    </div>
-                                    <div class="entry-content">
-                                        <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur ipsum doloe amet consecteur adipisicing elit.</p>
-                                    </div>
-                                    <div class="entry-footer">
-                                        <div class="entry-footer__inner">
-                                            <div class="b-post-social">SHARE
-                                                <ul class="b-post-social__list list-inline">
-                                                    <li><a href="twitter.html"><i class="icon fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li><a href="facebook.html"><i class="icon fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="plus.google.html"><i class="icon fa fa-google-plus"></i></a>
-                                                    </li>
-                                                    <li><a href="pinterest.html"><i class="icon fa fa-pinterest-p"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-meta"><span class="entry-meta__item"><i class="entry-meta__icon fa fa-heart"></i>242</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end .post-->
-                            <section class="b-post b-post-1 clearfix">
-                                <div class="entry-media">
-                                    <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/360x250/1.jpg" alt="Foto" />
-                                </div>
-                                <div class="entry-main">
-                                    <div class="entry-header">
-                                        <div class="entry-meta">
-                                            <div class="entry-meta__face">
-                                                <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/face/76x76_1.jpg" alt="face" />
-                                            </div><span class="entry-meta__item">Post by<a class="entry-meta__link" href="blog-main.html"> Thomas Neil</a></span><a class="entry-meta__categorie" href="blog-main.html"><strong>Ford News</strong></a>
-                                        </div>
-                                        <h2 class="entry-title"><a href="blog-post.html">Ford Motors overhauled its design team </a></h2>
-                                    </div>
-                                    <div class="entry-content">
-                                        <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur ipsum doloe amet consecteur adipisicing elit.</p>
-                                    </div>
-                                    <div class="entry-footer">
-                                        <div class="entry-footer__inner">
-                                            <div class="b-post-social">SHARE
-                                                <ul class="b-post-social__list list-inline">
-                                                    <li><a href="twitter.html"><i class="icon fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li><a href="facebook.html"><i class="icon fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="plus.google.html"><i class="icon fa fa-google-plus"></i></a>
-                                                    </li>
-                                                    <li><a href="pinterest.html"><i class="icon fa fa-pinterest-p"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-meta"><span class="entry-meta__item"><i class="entry-meta__icon fa fa-heart"></i>300</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end .post-->
-                            <section class="b-post b-post-1 clearfix">
-                                <div class="entry-media">
-                                    <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/360x250/2.jpg" alt="Foto" />
-                                </div>
-                                <div class="entry-main">
-                                    <div class="entry-header">
-                                        <div class="entry-meta">
-                                            <div class="entry-meta__face">
-                                                <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/face/76x76_2.jpg" alt="face" />
-                                            </div><span class="entry-meta__item">Post by<a class="entry-meta__link" href="blog-main.html"> Thomas Neil</a></span><a class="entry-meta__categorie" href="blog-main.html"><strong>Driving</strong></a>
-                                        </div>
-                                        <h2 class="entry-title"><a href="blog-post.html">Self-driving legislation sets in the motion</a></h2>
-                                    </div>
-                                    <div class="entry-content">
-                                        <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur ipsum doloe amet consecteur adipisicing elit.</p>
-                                    </div>
-                                    <div class="entry-footer">
-                                        <div class="entry-footer__inner">
-                                            <div class="b-post-social">SHARE
-                                                <ul class="b-post-social__list list-inline">
-                                                    <li><a href="twitter.html"><i class="icon fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li><a href="facebook.html"><i class="icon fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="plus.google.html"><i class="icon fa fa-google-plus"></i></a>
-                                                    </li>
-                                                    <li><a href="pinterest.html"><i class="icon fa fa-pinterest-p"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-meta"><span class="entry-meta__item"><i class="entry-meta__icon fa fa-heart"></i>205</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end .post-->
-                            <section class="b-post b-post-1 clearfix">
-                                <div class="entry-media">
-                                    <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/360x250/3.jpg" alt="Foto" />
-                                </div>
-                                <div class="entry-main">
-                                    <div class="entry-header">
-                                        <div class="entry-meta">
-                                            <div class="entry-meta__face">
-                                                <img class="img-responsive" src="{{ asset('assets') }}/media/content/posts/face/76x76_3.jpg" alt="face" />
-                                            </div><span class="entry-meta__item">Post by<a class="entry-meta__link" href="blog-main.html"> Thomas Neil</a></span><a class="entry-meta__categorie" href="blog-main.html"><strong>What’s New</strong></a>
-                                        </div>
-                                        <h2 class="entry-title"><a href="blog-post.html">What's new coming from the automakers in future</a></h2>
-                                    </div>
-                                    <div class="entry-content">
-                                        <p>Duis aute irure reprehender voluptate velits fugiat nulla pariatur excepteur ipsum doloe amet consecteur adipisicing elit.</p>
-                                    </div>
-                                    <div class="entry-footer">
-                                        <div class="entry-footer__inner">
-                                            <div class="b-post-social">SHARE
-                                                <ul class="b-post-social__list list-inline">
-                                                    <li><a href="twitter.html"><i class="icon fa fa-twitter"></i></a>
-                                                    </li>
-                                                    <li><a href="facebook.html"><i class="icon fa fa-facebook"></i></a>
-                                                    </li>
-                                                    <li><a href="plus.google.html"><i class="icon fa fa-google-plus"></i></a>
-                                                    </li>
-                                                    <li><a href="pinterest.html"><i class="icon fa fa-pinterest-p"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="entry-meta"><span class="entry-meta__item"><i class="entry-meta__icon fa fa-heart"></i>242</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <!-- end .post-->
+                                    </section>
+                                @endforeach
+                            @endif
+
                         </div>
                         <!-- end .carousel-news-->
                     </div>

@@ -51,6 +51,9 @@ Route::get('contact-us', [SinglePageController::class, 'contact'])->name('contac
 
 Route::get('gallery', [SinglePageController::class, 'gallery'])->name('gallery');
 Route::get('about', [SinglePageController::class, 'about'])->name('about');
+Route::get('news', [SinglePageController::class, 'news'])->name('news');
+Route::get('news/{news_slug}', [SinglePageController::class, 'news_show'])->name('news.show');
+
 
 
 

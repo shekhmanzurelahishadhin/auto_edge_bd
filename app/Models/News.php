@@ -18,41 +18,6 @@ class News extends Model implements Auditable
 
     protected $guarded = ['id'];
 
-    public function department(): BelongsTo
-    {
-        return $this->belongsTo(Department::class);
-    }
-
-    public function institute(): BelongsTo
-    {
-        return $this->belongsTo(Institute::class);
-    }
-
-    protected static function booted(): void
-    {
-        if (Auth::check() && Auth::guard('admin')->check()){
-            if (Auth::guard('admin')->user()->department_id != null) {
-
-                static::creating(function ($model) {
-                    $model->department_id = Auth::guard('admin')->user()->department_id;
-                });
-
-                static::addGlobalScope('department_id', function (Builder $builder) {
-                    $builder->where('department_id', Auth::guard('admin')->user()->department_id);
-                });
-            }
-            if (Auth::guard('admin')->user()->institute_id != null) {
-
-                static::creating(function ($model) {
-                    $model->institute_id = Auth::guard('admin')->user()->institute_id;
-                });
-
-                static::addGlobalScope('institute_id', function (Builder $builder) {
-                    $builder->where('institute_id', Auth::guard('admin')->user()->institute_id);
-                });
-            }
-        }
-    }
 
     public function admin(): BelongsTo
     {
