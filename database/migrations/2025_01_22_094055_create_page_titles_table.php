@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('page_name')->unique();
             $table->string('page_title');
-            $table->string('page_sub_title');
+            $table->string('page_sub_title')->nullable();
             $table->boolean('status')->default(1)->comment('0==inactive & 1==active');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
