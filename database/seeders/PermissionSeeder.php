@@ -351,5 +351,30 @@ class PermissionSeeder extends Seeder
             'slug' => 'about.create',
         ]);
 
+        /*Page Title Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Page Title Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'page-title.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'page-title.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'page-title.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'page-title.destroy',
+        ]);
+
+
+
     }
 }

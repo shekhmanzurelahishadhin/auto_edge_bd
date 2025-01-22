@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\PageTitleController;
 
 
 
@@ -84,6 +85,10 @@ Route::post('about-store', [AboutUsController::class, 'store'])->name('about.sto
 Route::resource('news', NewsController::class);
 Route::post('news/trash/{id}', [NewsController::class, 'trash'])->name('news.trash');
 Route::get('news/restore/{id}', [NewsController::class, 'restore'])->name('news.restore');
+
+Route::resource('page-title', PageTitleController::class);
+Route::post('page-title/trash/{id}', [PageTitleController::class, 'trash'])->name('page-title.trash');
+Route::get('page-title/restore/{id}', [PageTitleController::class, 'restore'])->name('page-title.restore');
 
 Route::resource('journal', JournalController::class);
 Route::post('journal/trash/{id}', [JournalController::class, 'trash'])->name('journal.trash');
