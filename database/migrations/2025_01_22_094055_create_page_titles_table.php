@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('page_titles', function (Blueprint $table) {
             $table->id();
-            $table->string('page_name')->unique();
+            $table->string('page_code')->unique();
             $table->string('page_title');
             $table->string('page_sub_title')->nullable();
             $table->boolean('status')->default(1)->comment('0==inactive & 1==active');

@@ -31,8 +31,8 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $data['events'] = Event::where('status',1)->latest()->limit(6)->get();
-        return view('backend.dashboard.admin_dashboard',$data);
+//        $data['events'] = Event::where('status',1)->latest()->limit(6)->get();
+        return view('backend.dashboard.admin_dashboard');
 
     }
 }

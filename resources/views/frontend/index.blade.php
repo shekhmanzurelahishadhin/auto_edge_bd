@@ -50,8 +50,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="">
-                        <h2 class="ui-title-block">About MotorLand</h2>
-                        <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
+                        <h2 class="ui-title-block">{{$about_title->page_title??null}}</h2>
+                        <div class="ui-subtitle-block">{{$about_title->page_sub_title??null}}</div>
                         <div class="ui-decor"></div>
                         <div class="b-about-main">
                             {!! $about->short_details??null !!}

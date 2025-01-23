@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="b-title-page bg-primary_a">About Us</h1>
+                        <h1 class="b-title-page bg-primary_a">{{$title->page_title??''}}</h1>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                 <div class="col-xs-12">
                     <ol class="breadcrumb">
                         <li><a href="{{route('root')}}"><i class="icon fa fa-home"></i></a></li>
-                        <li class="active">About Us</li>
+                        <li class="active">{{$title->page_title??''}}</li>
                     </ol>
                 </div>
             </div>
@@ -31,8 +31,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="">
-                        <h2 class="ui-title-block">About MotorLand</h2>
-                        <div class="ui-subtitle-block">Tempor incididunt duis labore dolore magna aliqua sed ipsum</div>
+                        <h2 class="ui-title-block">{{$title->page_title??''}}</h2>
+                        <div class="ui-subtitle-block">{{$title->page_sub_title??''}}</div>
                         <div class="ui-decor"></div>
                         <div class="b-about-main">
                             {!! $about->long_details??null !!}

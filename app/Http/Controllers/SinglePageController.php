@@ -18,6 +18,7 @@ use App\Models\LibraryInfo;
 use App\Models\Logo;
 use App\Models\Member;
 use App\Models\News;
+use App\Models\PageTitle;
 use App\Models\PostGraduate;
 use App\Models\Publication;
 use App\Models\ResourceInfo;
@@ -42,7 +43,8 @@ class SinglePageController extends Controller
 
     public function about()
     {
-        $data['about'] = $data['about'] = AboutUs::latest()->first();
+        $data['about'] = AboutUs::latest()->first();
+        $data['title'] = PageTitle::where('page_code','about_us')->first(['page_title','page_sub_title']);
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
 

@@ -179,6 +179,7 @@
                          Request::is('admin/about*')||
                          Request::is('admin/logo*')||
                          Request::is('admin/news*')||
+                         Request::is('admin/page-title*')||
                          Request::is('admin/act-rule*')||
                          Request::is('admin/map-details*')||
                          Request::is('admin/resource*'))
@@ -243,6 +244,13 @@
                                            data-key="t-basic-tables">News</a>
                                     </li>
                                 @endcan
+                                    @can('page-title.index')
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.page-title.index') }}"
+                                               class="nav-link {{ Request::is('admin/page-title*') ? 'active' : '' }}"
+                                               data-key="t-basic-tables">Page Title</a>
+                                        </li>
+                                    @endcan
                                 @can('settings.index')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.act-rule.create') }}"

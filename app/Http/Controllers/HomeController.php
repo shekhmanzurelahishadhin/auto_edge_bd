@@ -12,6 +12,7 @@ use App\Models\GalleryCategory;
 use App\Models\Institute;
 use App\Models\News;
 use App\Models\Notice;
+use App\Models\PageTitle;
 use App\Models\Seminar;
 use App\Models\Slider;
 use App\Models\User;
@@ -54,6 +55,7 @@ class HomeController extends Controller
 //        dd($data['newses']);
         $data['brands'] = Brand::where('status',1)->latest()->take(6)->get(['id','image']);
         $data['about'] = AboutUs::latest()->first();
+        $data['about_title'] = PageTitle::where('page_code','about_us')->first(['page_title','page_sub_title']);
         $data['galleries'] = GalleryCategory::with(['galleries' => function($query) {
             $query->where('status', 1)->latest()->take(10);
         }])->get();

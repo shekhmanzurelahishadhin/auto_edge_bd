@@ -9,9 +9,9 @@
 <link rel="icon" type="image/x-icon" href="{{ asset('assets') }}/car.png" />
 
 <style>
-    .active-header{
-        background-color: #d01818;
-        color: white !important;
+    .active-nav{
+        border: 1px solid #d01818 !important;
+        /*color: white !important;*/
     }
 </style>
 
