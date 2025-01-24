@@ -55,6 +55,7 @@ class SinglePageController extends Controller
         $data['newses'] = News::where('status',1)->with('admin_created:id,name,image')->latest()->select('id','title','slug','short_description','image','created_by')->paginate(10);
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
+        $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
 
         return view('frontend.news',$data);
     }

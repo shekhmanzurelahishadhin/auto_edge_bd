@@ -54,7 +54,8 @@ Route::get('about', [SinglePageController::class, 'about'])->name('about');
 Route::get('news', [SinglePageController::class, 'news'])->name('news');
 Route::get('news/{news_slug}', [SinglePageController::class, 'news_show'])->name('news.show');
 
-
+Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
+Route::post('send-message', [HomeController::class, 'sendMessage'])->name('send-message');
 
 
 Route::get('journal', [FrontController::class, 'journal'])->name('journal.index');

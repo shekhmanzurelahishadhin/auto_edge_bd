@@ -66,7 +66,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="mb-3">
-                                            <label for="image">About Us Image <strong class="text-danger">* <small>(Recommended Size 200 X 200 | Max: 5 MB)</small></strong></label>
+                                            <label for="image">About Us Image <strong class="text-danger">* <small>(Recommended Size 1080 X 700 | Max: 20 MB)</small></strong></label>
                                             <input class="file-upload dropify" name="image" id="image" type="file" data-allowed-file-extensions="jpg jpeg png" data-default-file="{{ isset($about->image) != null ? asset($about->image) : '' }}">
                                             @error('image')
                                             <span class="text-danger">{{ $message }}</span>

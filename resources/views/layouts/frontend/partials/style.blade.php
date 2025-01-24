@@ -7,6 +7,8 @@
 <link href="{{ asset('assets') }}/plugins/switcher/css/color3.css" rel="alternate stylesheet" title="color3" />
 <link href="{{ asset('assets') }}/plugins/switcher/css/color4.css" rel="alternate stylesheet" title="color4" />
 <link rel="icon" type="image/x-icon" href="{{ asset('assets') }}/car.png" />
+<link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
 
 <style>
     .active-nav{

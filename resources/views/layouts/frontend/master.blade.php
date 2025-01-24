@@ -50,6 +50,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="telephone=no" name="format-detection" />
     <meta name="HandheldFriendly" content="true" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('layouts.frontend.partials.style')
 </head>
 
@@ -170,6 +171,7 @@
 <!-- MAIN SCRIPTS-->
 <!-- ++++++++++++-->
 @include('layouts.frontend.partials._scripts')
+{!! Toastr::message() !!}
 </body>
 
 

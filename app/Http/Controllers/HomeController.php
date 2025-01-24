@@ -14,13 +14,17 @@ use App\Models\News;
 use App\Models\Notice;
 use App\Models\PageTitle;
 use App\Models\Seminar;
+use App\Models\SendMessage;
 use App\Models\Slider;
+use App\Models\Subscribe;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -55,12 +59,18 @@ class HomeController extends Controller
 //        dd($data['newses']);
         $data['brands'] = Brand::where('status',1)->latest()->take(6)->get(['id','image']);
         $data['about'] = AboutUs::latest()->first();
-        $data['about_title'] = PageTitle::where('page_code','about_us')->first(['page_title','page_sub_title']);
         $data['galleries'] = GalleryCategory::with(['galleries' => function($query) {
             $query->where('status', 1)->latest()->take(10);
         }])->get();
         $data['gallery_categories'] = GalleryCategory::where('status',1)->latest()->take(5)->get(['id','title']);
 
+
+        $data['about_title'] = PageTitle::where('page_code','about_us')->first(['page_title','page_sub_title']);
+        $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
+        $data['photo_gallery_title'] = PageTitle::where('page_code','photo_gallery')->first(['page_title','page_sub_title']);
+        $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
+        $data['contact_us_title'] = PageTitle::where('page_code','contact_us')->first(['page_title','page_sub_title']);
+        $data['subscribe_title'] = PageTitle::where('page_code','subscribe')->first(['page_title','page_sub_title']);
         return view('frontend.index',$data);
     }
 
@@ -153,5 +163,65 @@ class HomeController extends Controller
                 ], 200); // Status code here
             }
         }
+    }
+
+    public function subscribe(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+
+        try {
+            $subscribe = new Subscribe();
+            $subscribe->email = $request->email;
+            $subscribe->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Subscribed successfully.'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Subscribed Failed.'
+            ]);
+        }
+
+    }
+    public function sendMessage(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'nullable|max:255',
+            'phone' => 'nullable|max:255',
+            'message' => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()->all()]);
+        }
+
+
+        try {
+            $data = $request->except('_token');
+
+            SendMessage::create($data);
+            return response()->json([
+                'success' => true,
+                'message' => 'Message Send successfully.'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Message Send Failed.'
+            ]);
+        }
+
     }
 }

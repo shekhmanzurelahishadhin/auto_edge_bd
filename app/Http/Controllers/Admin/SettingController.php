@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Logo;
+use App\Models\SendMessage;
 use App\Models\Setting;
+use App\Models\Subscribe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -279,5 +281,42 @@ class SettingController extends Controller
         flash()->addSuccess('Social Links Updated Successfully');
         return back();
 
+    }
+
+    public function subscribe()
+    {
+        $subscribes = Subscribe::get();
+        return view('backend.settings.subscribe',compact('subscribes'));
+    }
+
+    public function subscribeDestroy($id)
+    {
+        Gate::authorize('subscribe.destroy');
+        $brand = Subscribe::where('id', $id)->first();
+        $brand->delete();
+        flash()->addSuccess('Deleted successfully');
+
+        return redirect()->back();
+    }
+
+    public function message()
+    {
+        $messages = SendMessage::get();
+        return view('backend.settings.message',compact('messages'));
+    }
+
+    public function messageDestroy($id)
+    {
+        Gate::authorize('message.destroy');
+        $brand = SendMessage::where('id', $id)->first();
+        $brand->delete();
+        flash()->addSuccess('Deleted successfully');
+
+        return redirect()->back();
+    }
+
+    public function messageShow(SendMessage $message)
+    {
+        return view('backend.settings.message-show', compact('message'));
     }
 }

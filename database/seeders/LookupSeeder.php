@@ -49,5 +49,12 @@ class LookupSeeder extends Seeder
             'name' => 'Featured Vehicles',
             'code' => 'featured_vehicles',
         ]);
+        Lookup::updateOrCreate([
+            'name' => 'Subscribe',
+        ],[
+            'type' => 'title_page',
+            'name' => 'Subscribe',
+            'code' => 'subscribe',
+        ]);
     }
 }

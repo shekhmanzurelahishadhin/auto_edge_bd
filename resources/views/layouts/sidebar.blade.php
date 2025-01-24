@@ -273,6 +273,8 @@
                 @if (Request::is('admin/website-contact*')||
                 Request::is('admin/report*')||
                 Request::is('admin/special-event*')||
+                Request::is('admin/subscribe*')||
+                Request::is('admin/message*')||
                 Request::is('admin/website-links*'))
                     @php($settingsNav = true)
                 @endif
@@ -297,6 +299,20 @@
                                         <a href="{{ route('admin.website-links.create') }}"
                                            class="nav-link {{ Request::is('admin/website-links*') ? 'active' : '' }}"
                                            data-key="t-basic-tables">Social Links</a>
+                                    </li>
+                                @endcan
+                                @can('subscribe.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.subscribe.index') }}"
+                                           class="nav-link {{ Request::is('admin/subscribe*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Subscribers</a>
+                                    </li>
+                                @endcan
+                                    @can('message.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.message.index') }}"
+                                           class="nav-link {{ Request::is('admin/message*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Messages</a>
                                     </li>
                                 @endcan
                                 @can('report.index')

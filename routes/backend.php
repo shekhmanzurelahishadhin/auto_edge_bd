@@ -60,9 +60,6 @@ Route::put('user/profile/update', [AdminProfileController::class, 'update'])->na
 
 
 
-
-
-
 Route::resource('slider', SliderController::class);
 Route::post('slider/trash/{id}', [SliderController::class, 'trash'])->name('slider.trash');
 Route::get('slider/restore/{id}', [SliderController::class, 'restore'])->name('slider.restore');
@@ -89,6 +86,14 @@ Route::get('news/restore/{id}', [NewsController::class, 'restore'])->name('news.
 Route::resource('page-title', PageTitleController::class);
 Route::post('page-title/trash/{id}', [PageTitleController::class, 'trash'])->name('page-title.trash');
 Route::get('page-title/restore/{id}', [PageTitleController::class, 'restore'])->name('page-title.restore');
+
+Route::get('subscribe', [SettingController::class, 'subscribe'])->name('subscribe.index');
+Route::delete('subscribe/{subscribe}', [SettingController::class, 'subscribeDestroy'])->name('subscribe.destroy');
+
+Route::get('message', [SettingController::class, 'message'])->name('message.index');
+Route::delete('message/{message}', [SettingController::class, 'messageDestroy'])->name('message.destroy');
+Route::get('message/{message}', [SettingController::class, 'messageShow'])->name('message.show');
+
 
 Route::resource('journal', JournalController::class);
 Route::post('journal/trash/{id}', [JournalController::class, 'trash'])->name('journal.trash');

@@ -1,4 +1,5 @@
-<script src="{{ asset('assets') }}/libs/jquery-1.12.4.min.js"></script>
+{{--<script src="{{ asset('assets') }}/libs/jquery-1.12.4.min.js"></script>--}}
+<script src="{{ asset('build/js/jquery-3.7.0.min.js') }}"></script>
 <script src="{{ asset('assets') }}/libs/jquery-migrate-1.2.1.js"></script>
 <!-- Bootstrap-->
 <script src="{{ asset('assets') }}/libs/bootstrap/bootstrap.min.js"></script>
@@ -31,6 +32,7 @@
 <script src="{{ asset('assets') }}/plugins/scrollreveal/scrollreveal.min.js"></script>
 <!-- Main slider-->
 <script src="{{ asset('assets') }}/plugins/slider-pro/jquery.sliderPro.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 <!-- User map-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqQ_bBw186KJnMcRByvn5ffZueg88wp1E"></script>
 <!-- Maps customization-->

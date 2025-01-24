@@ -5219,7 +5219,7 @@ blockquote cite {
 .footer {
   padding-top: 111px;
   color: #888;
-  background: url("../media/components/footer/bg.jpg");
+  /*background: url("../media/components/footer/bg.jpg");*/
   background-size: cover;
 }
 

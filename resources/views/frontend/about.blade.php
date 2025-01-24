@@ -29,7 +29,7 @@
     <section class="b-about section-default">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="">
                         <h2 class="ui-title-block">{{$title->page_title??''}}</h2>
                         <div class="ui-subtitle-block">{{$title->page_sub_title??''}}</div>
@@ -40,7 +40,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-4 about-us-img-section">
+                <div class="col-lg-12 about-us-img-section">
                     <img src="{{ asset(isset($about->image)?$about->image:'') }}" class="" alt="">
                 </div>
             </div>

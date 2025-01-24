@@ -375,6 +375,30 @@ class PermissionSeeder extends Seeder
         ]);
 
 
+        /*Page Title Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Subscribe Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'subscribe.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'subscribe.destroy',
+        ]);
 
+        /*Page Title Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Message Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'message.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'message.destroy',
+        ]);
     }
 }

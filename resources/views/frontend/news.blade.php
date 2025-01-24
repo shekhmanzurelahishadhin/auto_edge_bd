@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="b-title-page bg-primary_a">Latest News</h1>
+                        <h1 class="b-title-page bg-primary_a">{{$latest_news_title->page_title??null}}</h1>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <ol class="breadcrumb">
                         <li><a href="{{route('root')}}"><i class="icon fa fa-home"></i></a>
                         </li>
-                        <li class="active">Latest News</li>
+                        <li class="active">{{$latest_news_title->page_title??null}}</li>
                     </ol>
                 </div>
             </div>
@@ -27,9 +27,14 @@
     </div>
     <!-- end breadcrumb-->
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 60px">
             <div class="col-md-12">
-                <main class="l-main-content">
+                <div class="text-center">
+                    <h2 class="ui-title-block">{{$latest_news_title->page_title??null}}</h2>
+                    <div class="ui-subtitle-block">{{$latest_news_title->page_sub_title??null}}</div>
+                    <div class="ui-decor"></div>
+                </div>
+                <main class="" style="margin-top: 50px">
                     <!-- end .filter-goods-->
                     <div class="goods-group-2 list-goods list-goods_th">
                         @if($newses)

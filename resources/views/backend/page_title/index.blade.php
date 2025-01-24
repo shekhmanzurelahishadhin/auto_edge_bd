@@ -42,6 +42,7 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Page</th>
+                                <th>Code</th>
                                 <th>Title</th>
                                 <th>Sub Title</th>
                                 <th>Status</th>
@@ -54,6 +55,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->page->name??null }}</td>
+                                    <td>{{ $data->page->code??null }}</td>
                                     <td>{{ $data->page_title??null }}</td>
                                     <td>{{ $data->page_sub_title??null }}</td>
                                     <td>

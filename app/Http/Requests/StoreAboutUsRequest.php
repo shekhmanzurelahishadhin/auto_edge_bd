@@ -24,7 +24,7 @@ class StoreAboutUsRequest extends FormRequest
         return [
             'short_details' => ['required'],
             'long_details' => ['required'],
-            'image' => 'nullable|mimes:jgp,jpeg,png|max:5000',
+            'image' => 'nullable|mimes:jgp,jpeg,png|max:20000',
         ];
     }
 }

@@ -45,35 +45,34 @@
         <!-- end .b-brands-->
     </div>
     <!-- end .section-default-->
-    <section class="b-about section-default">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="">
-                        <h2 class="ui-title-block">{{$about_title->page_title??null}}</h2>
-                        <div class="ui-subtitle-block">{{$about_title->page_sub_title??null}}</div>
-                        <div class="ui-decor"></div>
-                        <div class="b-about-main">
-                            {!! $about->short_details??null !!}
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-4 about-us-img-section">
-                    <img src="{{ asset(isset($about->image)?$about->image:'') }}" class="" alt="">
-                </div>
+    <div class="block-table block-table_xs">
+        <div class="block-table__cell col-md-6">
+            <div class="block-table__inner">
+                <img class="b-services__img" style="width: 100% !important;" src="{{ asset(isset($about->image)?$about->image:'') }}" alt="foto">
             </div>
         </div>
-        <!-- end .b-about-->
-    </section>
+        <div class="block-table__cell col-md-6 bg-grey">
+            <div class="block-table__inner">
+                <section class="b-services">
+                    <h2 class="ui-title-block">{{$about_title->page_title??null}}</h2>
+                    <div class="ui-subtitle-block">{{$about_title->page_sub_title??null}}</div>
+                    <div class="ui-decor"></div>
+                    <div class="b-services__content">
+                        {!! $about->short_details??null !!}
+                    </div><a class="btn btn-dark" href="{{route('about')}}">Learn More</a>
+                </section>
+                <!-- end .b-services-->
+            </div>
+        </div>
+    </div>
     <!-- end .section-filter-->
     <section class="section-default">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="text-center">
-                        <h2 class="ui-title-block">Featured Vehicles</h2>
-                        <div class="ui-subtitle-block">Tempor incididunt labore dolore magna alique</div>
+                        <h2 class="ui-title-block">{{$featured_vehicle_title->page_title??null}}</h2>
+                        <div class="ui-subtitle-block">{{$featured_vehicle_title->page_sub_title??null}}</div>
                         <div class="ui-decor"></div>
                     </div>
                 </div>
@@ -231,8 +230,8 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="text-center">
-                            <h2 class="ui-title-block">Photo Gallery</h2>
-                            <div class="ui-subtitle-block">Tempor incididunt labore dolore magna cillium fugiat</div>
+                            <h2 class="ui-title-block">{{$photo_gallery_title->page_title??null}}</h2>
+                            <div class="ui-subtitle-block">{{$photo_gallery_title->page_sub_title??null}}</div>
                             <div class="ui-decor"></div>
                         </div>
                     </div>
@@ -278,14 +277,14 @@
     </section>
 
     <!-- end .section-default-->
-    <section class="section-news area-bg area-bg_light area-bg_op_90 parallax" style="background-image: url({{ asset('assets') }}/media/content/bg/bg-7.jpg)">
+    <section class="section-news area-bg area-bg_light area-bg_op_90 parallax">
         <div class="area-bg__inner">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="text-center">
-                            <h2 class="ui-title-block">Latest News</h2>
-                            <div class="ui-subtitle-block">Tempor incididunt labore dolore magna clium fugiat alique</div>
+                            <h2 class="ui-title-block">{{$latest_news_title->page_title??null}}</h2>
+                            <div class="ui-subtitle-block">{{$latest_news_title->page_sub_title??null}}</div>
                             <div class="ui-decor"></div>
                         </div>
                         <div class="carousel-news owl-carousel owl-theme owl-theme_w-btn enable-owl-carousel"
@@ -344,12 +343,12 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="b-subscribe area-bg area-bg_prim area-bg_op_90 parallax" style="background-image: url({{ asset('assets') }}/media/components/b-subscribe/bg.jpg)">
                     <div class="area-bg__inner">
-                        <div class="b-subscribe__info">Get the latest news from MotorLand</div>
-                        <h2 class="b-subscribe__title">Subscribe to our newsletter</h2>
-                        <form class="b-subscribe__form ui-form" id="subscribeForm" action="#" method="post">
+                        <div class="b-subscribe__info">{{$subscribe_title->page_title??null}}</div>
+                        <h2 class="b-subscribe__title">{{$subscribe_title->page_sub_title??null}}</h2>
+                        <form class="b-subscribe__form ui-form" id="subscribeForm">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Enter your email ..." required="required" />
-                                <button class="b-subscribe__submit"><i class="fa fa-paper-plane"></i>
+                                <input class="form-control" type="text" placeholder="Enter your email ..." name="email" required="required" />
+                                <button class="b-subscribe__submit" id="subscriveBtn"><i class="fa fa-paper-plane"></i>
                                 </button>
                             </div>
                         </form>
@@ -364,32 +363,32 @@
             <div class="block-table__inner">
                 <section class="section-form-contacts">
                     <div class="section-form-contacts__label">Get in Touch</div>
-                    <h2 class="section-form-contacts__title">Send Us Message</h2>
-                    <div class="section-form-contacts__info">MotorLand is nisi aliquip exa con velit esse cillum dolore fugiatal sint ipsum occaecat excepteur ipsum dolor sit amet consectetur.</div>
+                    <h2 class="section-form-contacts__title">{{$contact_us_title->page_title??null}}</h2>
+                    <div class="section-form-contacts__info">{{$contact_us_title->page_sub_title??null}}</div>
                     <div id="success"></div>
-                    <form class="b-form-contacts ui-form" id="contactForm" action="#" method="post">
+                    <form class="b-form-contacts ui-form" id="contactForm">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control" id="user-name" type="text" name="user-name" placeholder="Name" required="required" />
+                                    <input class="form-control" id="user-name" type="text" name="name" placeholder="Name*" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" id="user-phone" type="tel" name="user-phone" placeholder="Phone" required="required" />
+                                    <input class="form-control" id="user-phone" type="tel" name="phone" placeholder="Phone" required="" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control" id="user-email" type="email" name="user-email" placeholder="Email" required="required" />
+                                    <input class="form-control" id="user-email" type="email" name="email" placeholder="Email *" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control last-block_mrg-btn_0" id="user-subject" type="text" name="user-subject" placeholder="Subject" required="required" />
+                                    <input class="form-control last-block_mrg-btn_0" id="user-subject" type="text" name="subject" placeholder="Subject" required="" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <textarea class="form-control" id="user-message" rows="7" placeholder="Message" required="required"></textarea>
-                                <button class="btn btn-white btn-lg">Send Message</button>
+                                <textarea class="form-control" id="message" name="message" rows="7" placeholder="Message *" required="required"></textarea>
+                                <button class="btn btn-white btn-lg" id="sendMessage">Send Message</button>
                             </div>
                         </div>
                     </form>
@@ -412,8 +411,6 @@
 @push('customCss')
 @endpush
 
-@push('customCss')
-@endpush
 
 @push('js')
 @endpush
@@ -421,5 +418,65 @@
 @push('customJs')
     <script>
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('#subscriveBtn').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                data: $('#subscribeForm').serialize(),
+                url: "{{ url('subscribe') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function(result) {
+                    if(result.errors)
+                    {
+                        $('#subscribeForm').trigger("reset");
+                        if(result.message){
+                            toastr.error(result.message);
+                        }
+                    }
+                    else
+                    {
+                        $('#subscribeForm').trigger("reset");
+                        toastr.success(result.message);
+                    }
+                },
+                error: function(data) {
+                    $('#subscribeForm').trigger("reset");
+                }
+            });
+        });
+        $('#sendMessage').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                data: $('#contactForm').serialize(),
+                url: "{{ url('send-message') }}",
+                type: "POST",
+                dataType: 'json',
+                success: function(result) {
+                    if(result.errors)
+                    {
+                        $('#contactForm').trigger("reset")
+                        if(result.message){
+                            toastr.error(result.message);
+                        }
+
+                    }
+                    else
+                    {
+                        $('#contactForm').trigger("reset");
+                        toastr.success(result.message);
+                    }
+                },
+                error: function(data) {
+                    $('#contactForm').trigger("reset");
+                }
+            });
+        });
     </script>
 @endpush
