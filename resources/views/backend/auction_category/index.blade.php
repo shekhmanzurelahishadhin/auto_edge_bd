@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    Gallery Category
+    Auction Category
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Gallery Category
+            Auction Category
         @endslot
         @slot('sub_breadcrumb')
             list
@@ -23,8 +23,8 @@
                             <h4 class="card-title mb-0">@yield('title')</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            @can('gallery-category.create')
-                                <a href="{{ route('admin.gallery-category.create') }}" class="btn btn-primary">
+                            @can('auction-category.create')
+                                <a href="{{ route('admin.auction-category.create') }}" class="btn btn-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                                         <path
                                             d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
@@ -48,7 +48,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse ($gallery_categories as $data)
+                            @forelse ($auction_categories as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
 
@@ -90,7 +90,7 @@
                                             <ul class="dropdown-menu dropdown-menu-end" style="">
 
                                                 @if($data->deleted_at)
-                                                    @can('gallery-category.destroy')
+                                                    @can('auction-category.destroy')
                                                         <li>
                                                             <button onclick="deleteRecord({{ $data->id }})"
                                                                     type="button" class="dropdown-item remove-item-btn"
@@ -100,7 +100,7 @@
                                                                 Delete
                                                             </button>
                                                             <form id="delete-form-{{ $data->id }}"
-                                                                  action="{{ route('admin.gallery-category.destroy', $data->id) }}"
+                                                                  action="{{ route('admin.auction-category.destroy', $data->id) }}"
                                                                   method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -108,23 +108,24 @@
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.gallery-category.restore', $data->id) }}">
+                                                               href="{{ route('admin.auction-category.restore', $data->id) }}">
                                                                 <i class="ri-refresh-fill align-bottom me-2 text-muted"></i>
                                                                 Restore
                                                             </a>
                                                         </li>
                                                     @endcan
                                                 @else
-                                                    @can('gallery-category.edit')
+
+                                                    @can('auction-category.edit')
                                                         <li>
                                                             <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.gallery-category.edit', $data->id) }}">
+                                                               href="{{ route('admin.auction-category.edit', $data->id) }}">
                                                                 <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                 Edit
                                                             </a>
                                                         </li>
                                                     @endcan
-                                                    @can('gallery-category.destroy')
+                                                    @can('auction-category.destroy')
                                                         <li>
                                                             <button onclick="trashRecord({{ $data->id }})"
                                                                     type="button" class="dropdown-item remove-item-btn"
@@ -134,7 +135,7 @@
                                                                 Trash
                                                             </button>
                                                             <form id="trash-form-{{ $data->id }}"
-                                                                  action="{{ route('admin.gallery-category.trash', $data->id) }}"
+                                                                  action="{{ route('admin.auction-category.trash', $data->id) }}"
                                                                   method="POST" style="display: none;">
                                                                 @csrf
                                                             </form>

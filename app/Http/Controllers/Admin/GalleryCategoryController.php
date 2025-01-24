@@ -85,8 +85,8 @@ class GalleryCategoryController extends Controller
     public function trash($id)
     {
         Gate::authorize('gallery-category.destroy');
-        $gallery = GalleryCategory::findOrFail($id);
-        $gallery->delete();
+        $gallery_category = GalleryCategory::findOrFail($id);
+        $gallery_category->delete();
 
         flash()->addSuccess('Trashed successfully');
 
@@ -96,8 +96,8 @@ class GalleryCategoryController extends Controller
     public function restore($id)
     {
         Gate::authorize('gallery-category.destroy');
-        $gallery = GalleryCategory::withTrashed()->findOrFail($id);
-        $gallery->restore();
+        $gallery_category = GalleryCategory::withTrashed()->findOrFail($id);
+        $gallery_category->restore();
 
         flash()->addSuccess('Restore successfully');
 
@@ -107,11 +107,8 @@ class GalleryCategoryController extends Controller
     public function destroy($id)
     {
         Gate::authorize('gallery-category.destroy');
-        $gallery = GalleryCategory::onlyTrashed()->where('id', $id)->first();
-        if ($gallery->image != null && File::exists(public_path($gallery->image))) {
-            File::delete(public_path($gallery->image));
-        }
-        $gallery->forceDelete();
+        $gallery_category = GalleryCategory::onlyTrashed()->where('id', $id)->first();
+        $gallery_category->forceDelete();
         flash()->addSuccess('Deleted successfully');
 
         return redirect()->back();

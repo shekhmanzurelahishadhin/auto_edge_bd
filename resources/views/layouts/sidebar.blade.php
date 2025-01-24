@@ -41,27 +41,77 @@
                 {{-- Administration nav end --}}
 
 
-                @if (Request::is('admin/journal*')||
-                    Request::is('admin/book-volume*')||
-                    Request::is('admin/volume-journal*')||
-                    Request::is('admin/volume-issue*'))
-                    @php($journalNav = true)
+{{--                @if (Request::is('admin/journal*')||--}}
+{{--                    Request::is('admin/book-volume*')||--}}
+{{--                    Request::is('admin/volume-journal*')||--}}
+{{--                    Request::is('admin/volume-issue*'))--}}
+{{--                    @php($journalNav = true)--}}
+{{--                @endif--}}
+{{--                @canany(['journal.index','volume-issue.index','volume-journal.index'])--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link menu-link {{ isset($journalNav) ? 'active' : '' }}" href="#sidebarJournal"--}}
+{{--                           data-bs-toggle="collapse" role="button"--}}
+{{--                           aria-expanded="false" aria-controls="sidebarJournal">--}}
+{{--                            <i class="ri-article-fill"></i> <span>Journal</span>--}}
+{{--                        </a>--}}
+{{--                        <div class="collapse menu-dropdown {{ isset($journalNav) ? 'show' : '' }}"--}}
+{{--                             id="sidebarJournal">--}}
+{{--                            <ul class="nav nav-sm flex-column">--}}
+{{--                                @can('journal.index')--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{ route('admin.journal.index') }}"--}}
+{{--                                           class="nav-link {{ Request::is('admin/journal*') ? 'active' : '' }}">--}}
+{{--                                            Journal--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                @endcan--}}
+{{--                                @can('volume-issue.index')--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{ route('admin.volume-issue.index') }}"--}}
+{{--                                           class="nav-link {{ Request::is('admin/volume-issue*') ? 'active' : '' }}">--}}
+{{--                                            Issue--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                @endcan--}}
+{{--                                @can('volume-journal.index')--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="{{ route('admin.volume-journal.index') }}"--}}
+{{--                                           class="nav-link {{ Request::is('admin/volume-journal*') ? 'active' : '' }}">--}}
+{{--                                            Books--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                @endcan--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
+{{--                    </li>--}}
+{{--                @endcanany--}}
+
+                @if (Request::is('admin/auction-category*')||Request::is('admin/auction-about*'))
+                    @php($auctionSheetNav = true)
                 @endif
-                @canany(['journal.index','volume-issue.index','volume-journal.index'])
+                @canany(['auction-category.index','auction-about.create'])
                     <li class="nav-item">
-                        <a class="nav-link menu-link {{ isset($journalNav) ? 'active' : '' }}" href="#sidebarJournal"
+                        <a class="nav-link menu-link {{ isset($auctionSheetNav) ? 'active' : '' }}" href="#actionSheet"
                            data-bs-toggle="collapse" role="button"
-                           aria-expanded="false" aria-controls="sidebarJournal">
-                            <i class="ri-article-fill"></i> <span>Journal</span>
+                           aria-expanded="false" aria-controls="actionSheet">
+                            <i class="ri-article-fill"></i> <span>Auction Sheet Guide</span>
                         </a>
-                        <div class="collapse menu-dropdown {{ isset($journalNav) ? 'show' : '' }}"
-                             id="sidebarJournal">
+                        <div class="collapse menu-dropdown {{ isset($auctionSheetNav) ? 'show' : '' }}"
+                             id="actionSheet">
                             <ul class="nav nav-sm flex-column">
-                                @can('journal.index')
+                                @can('auction-about.create')
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.journal.index') }}"
-                                           class="nav-link {{ Request::is('admin/journal*') ? 'active' : '' }}">
-                                            Journal
+                                        <a href="{{ route('admin.auction-about.create') }}"
+                                           class="nav-link {{ Request::is('admin/auction-about*') ? 'active' : '' }}">
+                                            About Auction
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('auction-category.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.auction-category.index') }}"
+                                           class="nav-link {{ Request::is('admin/auction-category*') ? 'active' : '' }}">
+                                            Auction Category
                                         </a>
                                     </li>
                                 @endcan
@@ -167,7 +217,12 @@
                 </li>
                 @if (auth()->guard('admin')->user()->can('slider.index') ||
                                auth()->guard('admin')->user()->can('gallery.index') ||
-                               auth()->guard('admin')->user()->can('resource.index') ||
+                               auth()->guard('admin')->user()->can('gallery-category.index') ||
+                               auth()->guard('admin')->user()->can('brand.index') ||
+                               auth()->guard('admin')->user()->can('about.index') ||
+                               auth()->guard('admin')->user()->can('logo.index') ||
+                               auth()->guard('admin')->user()->can('news.index') ||
+                               auth()->guard('admin')->user()->can('page-title.index') ||
                                auth()->guard('admin')->user()->can('settings.index') )
 
                     <li class="menu-title"><i class="ri-more-fill"></i> <span>Site Management</span></li>
@@ -180,7 +235,6 @@
                          Request::is('admin/logo*')||
                          Request::is('admin/news*')||
                          Request::is('admin/page-title*')||
-                         Request::is('admin/act-rule*')||
                          Request::is('admin/map-details*')||
                          Request::is('admin/resource*'))
                         @php($siteNav = true)
@@ -251,13 +305,6 @@
                                                data-key="t-basic-tables">Page Title</a>
                                         </li>
                                     @endcan
-                                @can('settings.index')
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.act-rule.create') }}"
-                                           class="nav-link {{ Request::is('admin/act-rule*') ? 'active' : '' }}"
-                                           data-key="t-basic-tables">Act and Rules</a>
-                                    </li>
-                                @endcan
                                 @can('settings.index')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.map-details.create') }}"

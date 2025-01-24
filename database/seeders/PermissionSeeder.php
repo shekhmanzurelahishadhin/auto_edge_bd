@@ -400,5 +400,36 @@ class PermissionSeeder extends Seeder
             'name' => 'Delete',
             'slug' => 'message.destroy',
         ]);
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Auction Category Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'auction-category.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'auction-category.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'auction-category.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'auction-category.destroy',
+        ]);
+
+        $moduleForm = Module::updateOrCreate(['name' => 'Auction About Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'auction-about.create',
+        ]);
     }
 }

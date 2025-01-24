@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PageTitleController;
+use App\Http\Controllers\Admin\AuctionCategoryController;
+use App\Http\Controllers\Admin\AboutAuctionController;
 
 
 
@@ -94,6 +96,12 @@ Route::get('message', [SettingController::class, 'message'])->name('message.inde
 Route::delete('message/{message}', [SettingController::class, 'messageDestroy'])->name('message.destroy');
 Route::get('message/{message}', [SettingController::class, 'messageShow'])->name('message.show');
 
+Route::resource('auction-category', AuctionCategoryController::class);
+Route::post('auction-category/trash/{id}', [AuctionCategoryController::class, 'trash'])->name('auction-category.trash');
+Route::get('auction-category/restore/{id}', [AuctionCategoryController::class, 'restore'])->name('auction-category.restore');
+
+Route::get('auction-about', [AboutAuctionController::class, 'create'])->name('auction-about.create');
+Route::post('auction-about-store', [AboutAuctionController::class, 'store'])->name('auction-about.store');
 
 Route::resource('journal', JournalController::class);
 Route::post('journal/trash/{id}', [JournalController::class, 'trash'])->name('journal.trash');
