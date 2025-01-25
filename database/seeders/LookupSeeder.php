@@ -56,5 +56,12 @@ class LookupSeeder extends Seeder
             'name' => 'Subscribe',
             'code' => 'subscribe',
         ]);
+        Lookup::updateOrCreate([
+            'name' => 'Auction Sheet Guide',
+        ],[
+            'type' => 'title_page',
+            'name' => 'Auction Sheet Guide',
+            'code' => 'auction_sheet_guide',
+        ]);
     }
 }

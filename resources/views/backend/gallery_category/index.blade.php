@@ -52,7 +52,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
 
-                                    <td>{{ Str::limit( $data->title,60)  }}</td>
+                                    <td>{{ $data->title??''  }}</td>
                                     <td>
                                         @if($data->deleted_at)
                                             <span class="badge rounded-pill badge-soft-danger">Trashed</span>

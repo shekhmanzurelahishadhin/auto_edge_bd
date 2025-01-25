@@ -431,5 +431,74 @@ class PermissionSeeder extends Seeder
             'name' => 'Create',
             'slug' => 'auction-about.create',
         ]);
+
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Bidding Result Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'bidding-result.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'bidding-result.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'bidding-result.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'bidding-result.destroy',
+        ]);
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Auction Grade Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'auction-grade.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'auction-grade.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'auction-grade.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'auction-grade.destroy',
+        ]);
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Auction Sheet Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'auction-sheet.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'auction-sheet.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'auction-sheet.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'auction-sheet.destroy',
+        ]);
     }
 }

@@ -21,6 +21,9 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PageTitleController;
 use App\Http\Controllers\Admin\AuctionCategoryController;
 use App\Http\Controllers\Admin\AboutAuctionController;
+use App\Http\Controllers\Admin\BiddingResultController;
+use App\Http\Controllers\Admin\AuctionGradeController;
+use App\Http\Controllers\Admin\AuctionSheetController;
 
 
 
@@ -102,6 +105,18 @@ Route::get('auction-category/restore/{id}', [AuctionCategoryController::class, '
 
 Route::get('auction-about', [AboutAuctionController::class, 'create'])->name('auction-about.create');
 Route::post('auction-about-store', [AboutAuctionController::class, 'store'])->name('auction-about.store');
+
+Route::resource('bidding-result', BiddingResultController::class);
+Route::post('bidding-result/trash/{id}', [BiddingResultController::class, 'trash'])->name('bidding-result.trash');
+Route::get('bidding-result/restore/{id}', [BiddingResultController::class, 'restore'])->name('bidding-result.restore');
+
+Route::resource('auction-grade', AuctionGradeController::class);
+Route::post('auction-grade/trash/{id}', [AuctionGradeController::class, 'trash'])->name('auction-grade.trash');
+Route::get('auction-grade/restore/{id}', [AuctionGradeController::class, 'restore'])->name('auction-grade.restore');
+
+Route::resource('auction-sheet', AuctionSheetController::class);
+Route::post('auction-sheet/trash/{id}', [AuctionSheetController::class, 'trash'])->name('auction-sheet.trash');
+Route::get('auction-sheet/restore/{id}', [AuctionSheetController::class, 'restore'])->name('auction-sheet.restore');
 
 Route::resource('journal', JournalController::class);
 Route::post('journal/trash/{id}', [JournalController::class, 'trash'])->name('journal.trash');

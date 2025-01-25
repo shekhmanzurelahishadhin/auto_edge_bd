@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    Auction Category
+    Bidding Result
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Auction Category
+            Bidding Result
         @endslot
         @slot('sub_breadcrumb')
             Edit
@@ -20,7 +20,7 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h4 class="card-title mb-0">Edit Auction Category</h4>
+                            <h4 class="card-title mb-0">Edit Bidding Result</h4>
                         </div>
                         <div class="col-md-6 text-end">
                             @can('auction-category.index')
@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.auction-category.update',$auction_category->id) }}" method="post" id="newForm" enctype="multipart/form-data" >
+                    <form action="{{ route('admin.bidding-result.update',$bidding_result->id) }}" method="post" id="newForm" enctype="multipart/form-data" >
                         @csrf
                         @method('put')
                         <div class="row">
@@ -42,10 +42,18 @@
                                         <div class="new-user-info">
                                             <div class="row">
                                                 <div class="mb-3 col-md-12">
-                                                    <label for="title">{{ __('Auction Category Title') }}: <strong
+                                                    <label for="outcomes">{{ __('Outcomes') }}: <strong
                                                             class="text-danger">*</strong></label>
-                                                    <input id="title" type="text"  class="form-control @error('title') is-invalid @enderror" value="{{ $auction_category->title }}" name="title" required>
-                                                    @error('title')
+                                                    <input id="outcomes" type="text"  class="form-control @error('outcomes') is-invalid @enderror"  value="{{ $bidding_result->outcomes }}" name="outcomes" required>
+                                                    @error('outcomes')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="outcomes_status">{{ __('Outcomes Status') }}: <strong
+                                                            class="text-danger">*</strong></label>
+                                                    <input id="outcomes_status" type="text"  class="form-control @error('outcomes_status') is-invalid @enderror"  value="{{ $bidding_result->outcomes_status }}" name="outcomes_status" required>
+                                                    @error('outcomes_status')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -53,14 +61,14 @@
                                                 <div class="mb-3 py-4">
                                                     <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
                                                     <div class="pretty p-icon p-round p-pulse">
-                                                        <input type="radio" id="active"  name="status" value="1" {{$auction_category->status=='1'?'checked':''}} />
+                                                        <input type="radio" id="active"  name="status" value="1" {{$bidding_result->status=='1'?'checked':''}} />
                                                         <div class="state p-success">
                                                             <i class="icon mdi mdi-check"></i>
                                                             <label for="active">Active</label>
                                                         </div>
                                                     </div>
                                                     <div class="pretty p-icon p-round p-pulse">
-                                                        <input type="radio" id="inactive"   name="status" value="0" {{$auction_category->status=='0'?'checked':''}}/>
+                                                        <input type="radio" id="inactive"   name="status" value="0" {{$bidding_result->status=='0'?'checked':''}}/>
                                                         <div class="state p-danger">
                                                             <i class="icon mdi mdi-check"></i>
                                                             <label for="inactive">Inactive</label>
@@ -117,8 +125,14 @@
             var validator = $("#newForm").validate({
                 ignore: ".ql-container *",
                 messages: {
-                    title: {
-                        required: 'Auction Category title is required'
+                    outcomes: {
+                        required: 'Outcomes is required'
+                    },
+                    outcomes_status: {
+                        required: 'Outcomes Status is required'
+                    },
+                    status: {
+                        required: 'Status is required'
                     }
                 }
             });

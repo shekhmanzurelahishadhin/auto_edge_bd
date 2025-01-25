@@ -53,6 +53,7 @@ Route::get('gallery', [SinglePageController::class, 'gallery'])->name('gallery')
 Route::get('about', [SinglePageController::class, 'about'])->name('about');
 Route::get('news', [SinglePageController::class, 'news'])->name('news');
 Route::get('news/{news_slug}', [SinglePageController::class, 'news_show'])->name('news.show');
+Route::get('auction-sheet-guide', [SinglePageController::class, 'auctionSheetGuide'])->name('auction-sheet-guide');
 
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::post('send-message', [HomeController::class, 'sendMessage'])->name('send-message');

@@ -8,17 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class AuctionCategory extends Model
+class BiddingResult extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $guarded = ['id'];
-
-    public function grades()
-    {
-        return $this->hasMany(AuctionGrade::class);
-    }
 
     public function admin(): BelongsTo
     {
@@ -28,6 +23,10 @@ class AuctionCategory extends Model
     public function admin_created(): BelongsTo
     {
         return $this->belongsTo(Admin::class,'created_by');
+    }
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
     }
     public static function boot()
     {

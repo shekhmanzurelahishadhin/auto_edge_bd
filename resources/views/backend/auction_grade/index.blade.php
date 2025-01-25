@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    Auction Category
+    Auction Grade
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Auction Category
+            Auction Grade
         @endslot
         @slot('sub_breadcrumb')
             list
@@ -23,8 +23,8 @@
                             <h4 class="card-title mb-0">@yield('title')</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            @can('auction-category.create')
-                                <a href="{{ route('admin.auction-category.create') }}" class="btn btn-primary">
+                            @can('auction-grade.create')
+                                <a href="{{ route('admin.auction-grade.create') }}" class="btn btn-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                                         <path
                                             d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
@@ -41,18 +41,22 @@
                             <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Grade</th>
+                                <th>Grade Details</th>
                                 <th>Status</th>
                                 <th>Updated By</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse ($auction_categories as $data)
+                            @forelse ($auction_grades as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
 
-                                    <td>{{ $data->title??''  }}</td>
+                                    <td>{{ $data->category->title??null  }}</td>
+                                    <td>{{  $data->grade??'' }}</td>
+                                    <td>{{  $data->grade_details??''  }}</td>
                                     <td>
                                         @if($data->deleted_at)
                                             <span class="badge rounded-pill badge-soft-danger">Trashed</span>
@@ -90,7 +94,7 @@
                                             <ul class="dropdown-menu dropdown-menu-end" style="">
 
                                                 @if($data->deleted_at)
-                                                    @can('auction-category.destroy')
+                                                    @can('auction-grade.destroy')
                                                         <li>
                                                             <button onclick="deleteRecord({{ $data->id }})"
                                                                     type="button" class="dropdown-item remove-item-btn"
@@ -100,7 +104,7 @@
                                                                 Delete
                                                             </button>
                                                             <form id="delete-form-{{ $data->id }}"
-                                                                  action="{{ route('admin.auction-category.destroy', $data->id) }}"
+                                                                  action="{{ route('admin.auction-grade.destroy', $data->id) }}"
                                                                   method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -108,7 +112,7 @@
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.auction-category.restore', $data->id) }}">
+                                                               href="{{ route('admin.auction-grade.restore', $data->id) }}">
                                                                 <i class="ri-refresh-fill align-bottom me-2 text-muted"></i>
                                                                 Restore
                                                             </a>
@@ -116,16 +120,16 @@
                                                     @endcan
                                                 @else
 
-                                                    @can('auction-category.edit')
+                                                    @can('auction-grade.edit')
                                                         <li>
                                                             <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.auction-category.edit', $data->id) }}">
+                                                               href="{{ route('admin.auction-grade.edit', $data->id) }}">
                                                                 <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                 Edit
                                                             </a>
                                                         </li>
                                                     @endcan
-                                                    @can('auction-category.destroy')
+                                                    @can('auction-grade.destroy')
                                                         <li>
                                                             <button onclick="trashRecord({{ $data->id }})"
                                                                     type="button" class="dropdown-item remove-item-btn"
@@ -135,7 +139,7 @@
                                                                 Trash
                                                             </button>
                                                             <form id="trash-form-{{ $data->id }}"
-                                                                  action="{{ route('admin.auction-category.trash', $data->id) }}"
+                                                                  action="{{ route('admin.auction-grade.trash', $data->id) }}"
                                                                   method="POST" style="display: none;">
                                                                 @csrf
                                                             </form>

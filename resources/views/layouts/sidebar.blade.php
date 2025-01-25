@@ -86,10 +86,14 @@
 {{--                    </li>--}}
 {{--                @endcanany--}}
 
-                @if (Request::is('admin/auction-category*')||Request::is('admin/auction-about*'))
+                @if (Request::is('admin/auction-category*')||
+                    Request::is('admin/auction-about*')||
+                    Request::is('admin/auction-grade*')||
+                    Request::is('admin/auction-sheet*')||
+                    Request::is('admin/bidding-result*'))
                     @php($auctionSheetNav = true)
                 @endif
-                @canany(['auction-category.index','auction-about.create'])
+                @canany(['auction-category.index','bidding-result.index','auction-about.create'])
                     <li class="nav-item">
                         <a class="nav-link menu-link {{ isset($auctionSheetNav) ? 'active' : '' }}" href="#actionSheet"
                            data-bs-toggle="collapse" role="button"
@@ -115,22 +119,30 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('volume-issue.index')
+                                @can('auction-grade.index')
                                     <li class="nav-item">
-                                        <a href="{{ route('admin.volume-issue.index') }}"
-                                           class="nav-link {{ Request::is('admin/volume-issue*') ? 'active' : '' }}">
-                                            Issue
+                                        <a href="{{ route('admin.auction-grade.index') }}"
+                                           class="nav-link {{ Request::is('admin/auction-grade*') ? 'active' : '' }}">
+                                            Auction Grade
                                         </a>
                                     </li>
                                 @endcan
-                                @can('volume-journal.index')
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.volume-journal.index') }}"
-                                           class="nav-link {{ Request::is('admin/volume-journal*') ? 'active' : '' }}">
-                                            Books
-                                        </a>
-                                    </li>
-                                @endcan
+                                    @can('bidding-result.index')
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.bidding-result.index') }}"
+                                               class="nav-link {{ Request::is('admin/bidding-result*') ? 'active' : '' }}">
+                                                Bidding Results
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('auction-sheet.index')
+                                        <li class="nav-item">
+                                            <a href="{{ route('admin.auction-sheet.index') }}"
+                                               class="nav-link {{ Request::is('admin/auction-sheet*') ? 'active' : '' }}">
+                                                Auction Sheet
+                                            </a>
+                                        </li>
+                                    @endcan
                             </ul>
                         </div>
                     </li>

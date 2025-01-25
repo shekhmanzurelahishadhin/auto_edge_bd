@@ -28,6 +28,7 @@
                         <li><a class="{{Route::is('root') ? 'active-nav' : ''}}" href="{{route('root')}}" data-toggle="">Home</a></li>
                         <li><a href="{{route('about')}}" class="{{Route::is('about') ? 'active-nav' : ''}}">About Us</a></li>
                         <li><a href="{{route('news')}}" class="{{Route::is('news')||Route::is('news.show') ? 'active-nav' : ''}}">News</a></li>
+                        <li><a href="{{route('auction-sheet-guide')}}" class="{{Route::is('auction-sheet-guide') ? 'active-nav' : ''}}">Auction Sheet Guide</a></li>
                         <li class="dropdown"><a class="dropdown-toggle" href="listings-1.html" data-toggle="dropdown">Listings<b class="caret"></b></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="listings-1.html" tabindex="-1">Listings ver 01</a>

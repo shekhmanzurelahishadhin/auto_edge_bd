@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutUs;
+use App\Models\AuctionAbout;
+use App\Models\AuctionCategory;
+use App\Models\AuctionSheet;
+use App\Models\BiddingResult;
 use App\Models\Books;
 use App\Models\BusShift;
 use App\Models\BusStaff;
@@ -66,6 +70,20 @@ class SinglePageController extends Controller
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
         return view('frontend.news.show', $data);
+    }
+
+    public function auctionSheetGuide()
+    {
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        $data['auction_sheet_guide_title'] = PageTitle::where('page_code','auction_sheet_guide')->first(['page_title','page_sub_title']);
+        $data['about_auction'] = AuctionAbout::latest()->first();
+        $data['bidding_results'] = BiddingResult::get(['id','outcomes','outcomes_status']);
+        $data['auction_sheets'] = AuctionSheet::get(['id','title','image']);
+        $data['auction_categories'] = AuctionCategory::with('grades')->get();
+//        dd($data['auction_grades']);
+
+        return view('frontend.auction-sheet-guide',$data);
     }
 
     public function contact()

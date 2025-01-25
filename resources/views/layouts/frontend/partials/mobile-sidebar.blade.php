@@ -12,6 +12,8 @@
         </li>
         <li><a href="{{route('news')}}">News</a>
         </li>
+        <li><a href="{{route('auction-sheet-guide')}}">Auction Sheet Guide</a>
+        </li>
         <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Listings<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="listings-1.html" tabindex="-1">Listings ver 01</a>
