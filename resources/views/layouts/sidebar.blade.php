@@ -38,53 +38,63 @@
                         <i class="ri-dashboard-2-line"></i> <span>@lang('translation.dashboards')</span>
                     </a>
                 </li>
-                {{-- Administration nav end --}}
+                @if (Request::is('admin/model*')||
+                    Request::is('admin/brand*')||
+                    Request::is('admin/fuel-type*')||
+                    Request::is('admin/vehicle*')||
+                    Request::is('admin/year*'))
+                    @php($vehicleNav = true)
+                @endif
+                @canany(['brand.index','model.index','year.index','fuel-type.index','vehicle.index'])
+                    <li class="nav-item">
+                        <a class="nav-link menu-link {{ isset($vehicleNav) ? 'active' : '' }}" href="#vehicleNav"
+                           data-bs-toggle="collapse" role="button"
+                           aria-expanded="false" aria-controls="vehicleNav">
+                            <i class="ri-car-fill"></i> <span>Vehicle Management</span>
+                        </a>
+                        <div class="collapse menu-dropdown {{ isset($vehicleNav) ? 'show' : '' }}"
+                             id="vehicleNav">
+                            <ul class="nav nav-sm flex-column">
+                                @can('brand.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.brand.index') }}"
+                                           class="nav-link {{ Request::is('admin/brand*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Vehicle Brand</a>
+                                    </li>
+                                @endcan
+                                @can('model.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.model.index') }}"
+                                           class="nav-link {{ Request::is('admin/model*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Vehicle Model</a>
+                                    </li>
+                                @endcan
+                                @can('year.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.year.index') }}"
+                                           class="nav-link {{ Request::is('admin/year*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Vehicle Year</a>
+                                    </li>
+                                @endcan
+                                @can('fuel-type.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.fuel-type.index') }}"
+                                           class="nav-link {{ Request::is('admin/fuel-type*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Vehicle Fuel Type</a>
+                                    </li>
+                                @endcan
 
-
-{{--                @if (Request::is('admin/journal*')||--}}
-{{--                    Request::is('admin/book-volume*')||--}}
-{{--                    Request::is('admin/volume-journal*')||--}}
-{{--                    Request::is('admin/volume-issue*'))--}}
-{{--                    @php($journalNav = true)--}}
-{{--                @endif--}}
-{{--                @canany(['journal.index','volume-issue.index','volume-journal.index'])--}}
-{{--                    <li class="nav-item">--}}
-{{--                        <a class="nav-link menu-link {{ isset($journalNav) ? 'active' : '' }}" href="#sidebarJournal"--}}
-{{--                           data-bs-toggle="collapse" role="button"--}}
-{{--                           aria-expanded="false" aria-controls="sidebarJournal">--}}
-{{--                            <i class="ri-article-fill"></i> <span>Journal</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="collapse menu-dropdown {{ isset($journalNav) ? 'show' : '' }}"--}}
-{{--                             id="sidebarJournal">--}}
-{{--                            <ul class="nav nav-sm flex-column">--}}
-{{--                                @can('journal.index')--}}
-{{--                                    <li class="nav-item">--}}
-{{--                                        <a href="{{ route('admin.journal.index') }}"--}}
-{{--                                           class="nav-link {{ Request::is('admin/journal*') ? 'active' : '' }}">--}}
-{{--                                            Journal--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                @endcan--}}
-{{--                                @can('volume-issue.index')--}}
-{{--                                    <li class="nav-item">--}}
-{{--                                        <a href="{{ route('admin.volume-issue.index') }}"--}}
-{{--                                           class="nav-link {{ Request::is('admin/volume-issue*') ? 'active' : '' }}">--}}
-{{--                                            Issue--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                @endcan--}}
-{{--                                @can('volume-journal.index')--}}
-{{--                                    <li class="nav-item">--}}
-{{--                                        <a href="{{ route('admin.volume-journal.index') }}"--}}
-{{--                                           class="nav-link {{ Request::is('admin/volume-journal*') ? 'active' : '' }}">--}}
-{{--                                            Books--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                @endcan--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </li>--}}
-{{--                @endcanany--}}
+                                @can('vehicle.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.vehicle.index') }}"
+                                           class="nav-link {{ Request::is('admin/vehicle*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Vehicle Information</a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
+                    </li>
+                @endcanany
 
                 @if (Request::is('admin/auction-category*')||
                     Request::is('admin/auction-about*')||
@@ -93,7 +103,7 @@
                     Request::is('admin/bidding-result*'))
                     @php($auctionSheetNav = true)
                 @endif
-                @canany(['auction-category.index','bidding-result.index','auction-about.create'])
+                @canany(['auction-category.index','bidding-result.index','auction-about.create','auction-grade.index','auction-sheet.index'])
                     <li class="nav-item">
                         <a class="nav-link menu-link {{ isset($auctionSheetNav) ? 'active' : '' }}" href="#actionSheet"
                            data-bs-toggle="collapse" role="button"
@@ -127,22 +137,22 @@
                                         </a>
                                     </li>
                                 @endcan
-                                    @can('bidding-result.index')
-                                        <li class="nav-item">
-                                            <a href="{{ route('admin.bidding-result.index') }}"
-                                               class="nav-link {{ Request::is('admin/bidding-result*') ? 'active' : '' }}">
-                                                Bidding Results
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('auction-sheet.index')
-                                        <li class="nav-item">
-                                            <a href="{{ route('admin.auction-sheet.index') }}"
-                                               class="nav-link {{ Request::is('admin/auction-sheet*') ? 'active' : '' }}">
-                                                Auction Sheet
-                                            </a>
-                                        </li>
-                                    @endcan
+                                @can('bidding-result.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.bidding-result.index') }}"
+                                           class="nav-link {{ Request::is('admin/bidding-result*') ? 'active' : '' }}">
+                                            Bidding Results
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('auction-sheet.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.auction-sheet.index') }}"
+                                           class="nav-link {{ Request::is('admin/auction-sheet*') ? 'active' : '' }}">
+                                            Auction Sheet
+                                        </a>
+                                    </li>
+                                @endcan
                             </ul>
                         </div>
                     </li>
@@ -230,7 +240,6 @@
                 @if (auth()->guard('admin')->user()->can('slider.index') ||
                                auth()->guard('admin')->user()->can('gallery.index') ||
                                auth()->guard('admin')->user()->can('gallery-category.index') ||
-                               auth()->guard('admin')->user()->can('brand.index') ||
                                auth()->guard('admin')->user()->can('about.index') ||
                                auth()->guard('admin')->user()->can('logo.index') ||
                                auth()->guard('admin')->user()->can('news.index') ||
@@ -242,7 +251,6 @@
                     @if (Request::is('admin/slider*')||
                          Request::is('admin/gallery-category/*')||
                          Request::is('admin/gallery*')||
-                         Request::is('admin/brand*')||
                          Request::is('admin/about*')||
                          Request::is('admin/logo*')||
                          Request::is('admin/news*')||
@@ -282,13 +290,7 @@
                                            data-key="t-basic-tables">Gallery</a>
                                     </li>
                                 @endcan
-                                @can('brand.index')
-                                    <li class="nav-item">
-                                        <a href="{{ route('admin.brand.index') }}"
-                                           class="nav-link {{ Request::is('admin/brand*') ? 'active' : '' }}"
-                                           data-key="t-basic-tables">Brand</a>
-                                    </li>
-                                @endcan
+
                                 @can('about.create')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.about.create') }}"
@@ -310,13 +312,13 @@
                                            data-key="t-basic-tables">News</a>
                                     </li>
                                 @endcan
-                                    @can('page-title.index')
-                                        <li class="nav-item">
-                                            <a href="{{ route('admin.page-title.index') }}"
-                                               class="nav-link {{ Request::is('admin/page-title*') ? 'active' : '' }}"
-                                               data-key="t-basic-tables">Page Title</a>
-                                        </li>
-                                    @endcan
+                                @can('page-title.index')
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.page-title.index') }}"
+                                           class="nav-link {{ Request::is('admin/page-title*') ? 'active' : '' }}"
+                                           data-key="t-basic-tables">Page Title</a>
+                                    </li>
+                                @endcan
                                 @can('settings.index')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.map-details.create') }}"
@@ -367,7 +369,7 @@
                                            data-key="t-basic-tables">Subscribers</a>
                                     </li>
                                 @endcan
-                                    @can('message.index')
+                                @can('message.index')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.message.index') }}"
                                            class="nav-link {{ Request::is('admin/message*') ? 'active' : '' }}"

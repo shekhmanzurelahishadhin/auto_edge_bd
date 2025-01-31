@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    News
+    Vehicle Year
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            News
+            Vehicle Year
         @endslot
         @slot('sub_breadcrumb')
             list
@@ -23,14 +23,13 @@
                             <h4 class="card-title mb-0">@yield('title')</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            @can('news.create')
-                                <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
+                            @can('year.create')
+                                <a href="{{ route('admin.year.create') }}" class="btn btn-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                                         <path
                                             d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"
                                             fill="rgba(255,255,255,1)"></path>
-                                    </svg>
-                                    Add New</a>
+                                    </svg> Add New</a>
                             @endcan
                         </div>
                     </div>
@@ -42,28 +41,27 @@
                             <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Title</th>
-                                <th>Published At</th>
+                                <th>Year</th>
                                 <th>Status</th>
                                 <th>Updated By</th>
-                                <th>Actions</th>
+                                <th class="text-center">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @forelse ($news as $data)
+                            @forelse ($years as $data)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ Str::limit( $data->title,60)  }}</td>
-                                    <td>{{ $data->published_at }}</td>
+
+                                    <td>{{ $data->title??''  }}</td>
                                     <td>
                                         @if($data->deleted_at)
                                             <span class="badge rounded-pill badge-soft-danger">Trashed</span>
                                         @else
                                             @if ($data->status == true)
-                                                <span class="badge rounded-pill badge-soft-success">Published</span>
+                                                <span class="badge rounded-pill badge-soft-success">Active</span>
                                             @endif
                                             @if ($data->status == false)
-                                                <span class="badge rounded-pill badge-soft-danger">Draft</span>
+                                                <span class="badge rounded-pill badge-soft-danger">Inactive</span>
                                             @endif
                                         @endif
                                     </td>
@@ -76,6 +74,7 @@
                                             <small>({{ $data->updated_at->diffForHumans() }})</small>
                                         @endif
                                     </td>
+
                                     <td class="text-center w-10">
                                         <div class="dropdown d-inline-block">
                                             <button class="btn btn-danger btn-sm dropdown" type="button"
@@ -91,7 +90,7 @@
                                             <ul class="dropdown-menu dropdown-menu-end" style="">
 
                                                 @if($data->deleted_at)
-                                                    @can('news.destroy')
+                                                    @can('year.destroy')
                                                         <li>
                                                             <button onclick="deleteRecord({{ $data->id }})"
                                                                     type="button" class="dropdown-item remove-item-btn"
@@ -101,7 +100,7 @@
                                                                 Delete
                                                             </button>
                                                             <form id="delete-form-{{ $data->id }}"
-                                                                  action="{{ route('admin.news.destroy', $data->id) }}"
+                                                                  action="{{ route('admin.year.destroy', $data->id) }}"
                                                                   method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -109,32 +108,24 @@
                                                         </li>
                                                         <li>
                                                             <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.news.restore', $data->id) }}">
+                                                               href="{{ route('admin.year.restore', $data->id) }}">
                                                                 <i class="ri-refresh-fill align-bottom me-2 text-muted"></i>
                                                                 Restore
                                                             </a>
                                                         </li>
                                                     @endcan
                                                 @else
-                                                    @can('news.index')
+
+                                                    @can('year.edit')
                                                         <li>
                                                             <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.news.show', $data->id) }}">
-                                                                <i class="bx bxs-show align-bottom me-2 text-muted"></i>
-                                                                Show
-                                                            </a>
-                                                        </li>
-                                                    @endcan
-                                                    @can('news.edit')
-                                                        <li>
-                                                            <a class="dropdown-item edit-item-btn"
-                                                               href="{{ route('admin.news.edit', $data->id) }}">
+                                                               href="{{ route('admin.year.edit', $data->id) }}">
                                                                 <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                                 Edit
                                                             </a>
                                                         </li>
                                                     @endcan
-                                                    @can('news.destroy')
+                                                    @can('year.destroy')
                                                         <li>
                                                             <button onclick="trashRecord({{ $data->id }})"
                                                                     type="button" class="dropdown-item remove-item-btn"
@@ -144,7 +135,7 @@
                                                                 Trash
                                                             </button>
                                                             <form id="trash-form-{{ $data->id }}"
-                                                                  action="{{ route('admin.news.trash', $data->id) }}"
+                                                                  action="{{ route('admin.year.trash', $data->id) }}"
                                                                   method="POST" style="display: none;">
                                                                 @csrf
                                                             </form>
@@ -188,7 +179,6 @@
                 ]
             });
         });
-
         /* trash record alert*/
         function trashRecord(id) {
             const swalWithBootstrapButtons = Swal.mixin({
@@ -228,7 +218,6 @@
                 }
             })
         }
-
         /* delete record alert*/
         function deleteRecord(id) {
             const swalWithBootstrapButtons = Swal.mixin({
@@ -272,3 +261,5 @@
         }
     </script>
 @endpush
+
+

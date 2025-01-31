@@ -15,9 +15,11 @@ use App\Models\Notice;
 use App\Models\PageTitle;
 use App\Models\Seminar;
 use App\Models\SendMessage;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Subscribe;
 use App\Models\User;
+use App\Models\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -63,6 +65,7 @@ class HomeController extends Controller
             $query->where('status', 1)->latest()->take(10);
         }])->get();
         $data['gallery_categories'] = GalleryCategory::where('status',1)->latest()->take(5)->get(['id','title']);
+        $data['vehicles'] = Vehicle::where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->get();
 
 
         $data['about_title'] = PageTitle::where('page_code','about_us')->first(['page_title','page_sub_title']);
@@ -71,6 +74,7 @@ class HomeController extends Controller
         $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
         $data['contact_us_title'] = PageTitle::where('page_code','contact_us')->first(['page_title','page_sub_title']);
         $data['subscribe_title'] = PageTitle::where('page_code','subscribe')->first(['page_title','page_sub_title']);
+        $data['website_maps'] = Setting::where('name', 'website_maps')->latest()->first();
         return view('frontend.index',$data);
     }
 

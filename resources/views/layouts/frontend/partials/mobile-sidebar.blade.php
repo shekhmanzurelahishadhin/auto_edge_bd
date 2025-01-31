@@ -12,33 +12,15 @@
         </li>
         <li><a href="{{route('news')}}">News</a>
         </li>
+        <li><a href="{{route('vehicles')}}">Vehicles</a>
+        </li>
         <li><a href="{{route('auction-sheet-guide')}}">Auction Sheet Guide</a>
         </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Listings<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="listings-1.html" tabindex="-1">Listings ver 01</a>
-                </li>
-                <li><a href="listings-2.html" tabindex="-1">Listings ver 02</a>
-                </li>
-                <li><a href="listings-3.html" tabindex="-1">Listings ver 03</a>
-                </li>
-                <li><a href="car-details.html" tabindex="-1">Car details</a>
-                </li>
-            </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Blog<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="blog-main.html" tabindex="-1">Blog main</a>
-                </li>
-                <li><a href="blog-post.html" tabindex="-1">Blog post</a>
-                </li>
-            </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Pages<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="typography.html" tabindex="-1">Typography</a>
-                </li>
-            </ul>
-        </li>
+{{--        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Pages<b class="caret"></b></a>--}}
+{{--            <ul class="dropdown-menu" role="menu">--}}
+{{--                <li><a href="typography.html" tabindex="-1">Typography</a>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
+{{--        </li>--}}
     </ul>
 </div>

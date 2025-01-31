@@ -32,6 +32,7 @@ use App\Models\UnderGraduate;
 use App\Models\VcGallery;
 use App\Models\VcSlider;
 use App\Models\VcSpeech;
+use App\Models\Vehicle;
 use App\Models\ViceChancellorInfo;
 use Illuminate\Http\Request;
 
@@ -90,6 +91,26 @@ class SinglePageController extends Controller
     {
         $data['page_title'] = 'Contact';
         return view('frontend.contact',$data);
+    }
+
+    public function vehicles()
+    {
+        $data['newses'] = News::where('status',1)->with('admin_created:id,name,image')->latest()->select('id','title','slug','short_description','image','created_by')->paginate(10);
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
+
+        return view('frontend.vehicle.vehicle',$data);
+    }
+
+    public function vehicles_show($vehicleSlug)
+    {
+        $vehicle = Vehicle::where('status',1)->where('slug',$vehicleSlug)->first();
+        $data['vehicle'] = $vehicle;
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        $data['related_vehicles'] = Vehicle::where('status',1)->where('brand_id',$vehicle->brand_id)->take(10)->get();
+        return view('frontend.vehicle.vehicle-show', $data);
     }
 
 }

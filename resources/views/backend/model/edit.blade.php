@@ -1,12 +1,12 @@
 @extends('layouts.master')
 @section('title')
-    Gallery
+    Model
 @endsection
 @section('content')
     <!-- page title start-->
     @component('components.breadcrumb')
         @slot('first_breadcrumb')
-            Gallery
+            Model
         @endslot
         @slot('sub_breadcrumb')
             Edit
@@ -20,11 +20,11 @@
                 <div class="card-header">
                     <div class="row align-items-center">
                         <div class="col-md-6">
-                            <h4 class="card-title mb-0">Edit Gallery</h4>
+                            <h4 class="card-title mb-0">Edit Model</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            @can('gallery.index')
-                                <a href="{{ route('admin.gallery.index') }}" class="btn dark-icon btn-danger"><i
+                            @can('model.index')
+                                <a href="{{ route('admin.model.index') }}" class="btn dark-icon btn-danger"><i
                                         class="fa fa-reply"></i> Back to list</a>
                             @endcan
                         </div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.gallery.update',$gallery->id) }}" method="post" id="newForm" enctype="multipart/form-data" >
+                    <form action="{{ route('admin.model.update',$model->id) }}" method="post" id="newForm" enctype="multipart/form-data" >
                         @csrf
                         @method('put')
                         <div class="row">
@@ -43,16 +43,16 @@
                                             <div class="row">
 
                                                 <div class="mb-3">
-                                                    <label for="gallery_category_id">Gallery Category <strong class="text-danger">*</strong></label>
-                                                    <select name="gallery_category_id" id="gallery_category_id"
+                                                    <label for="brand_id">Brands <strong class="text-danger">*</strong></label>
+                                                    <select name="brand_id" id="brand_id"
                                                             class="form-control form-control-lg select2" required>
-                                                        <option value="">Select Category</option>
-                                                        @forelse($gallery_categories as $data)
-                                                            <option value="{{ $data->id }}" {{$data->id == $gallery->gallery_category_id?'selected':''}}>{{ $data->title }}</option>
+                                                        <option value="">Select Brand</option>
+                                                        @forelse($brands as $data)
+                                                            <option value="{{ $data->id }}" {{$data->id == $model->brand_id?'selected':''}}>{{ $data->title??null }}</option>
                                                         @empty
                                                         @endforelse
                                                     </select>
-                                                    @error('gallery_category_id')
+                                                    @error('brand_id')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -61,11 +61,9 @@
                                             </div>
                                             <div class="row">
                                                 <div class="mb-3">
-                                                    <label for="image">Gallery Image <strong class="text-danger">* <small>(Recommended Size 100 X 80 | Max: 5 MB)</small></strong></label>
-                                                    <input class="file-upload dropify" name="image" type="file"
-                                                           data-allowed-file-extensions="jpg jpeg png"
-                                                           data-default-file="{{ $gallery->image != null ? asset($gallery->image) : '' }}">
-                                                    @error('image')
+                                                    <label for="title">Model name <strong class="text-danger">* </strong></label>
+                                                    <input class="form-control" name="title" type="text" value="{{$model->title??null}}">
+                                                    @error('title')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -73,14 +71,14 @@
                                             <div class="mb-3 py-4">
                                                 <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
                                                 <div class="pretty p-icon p-round p-pulse">
-                                                    <input type="radio" id="active"  name="status" value="1" {{$gallery->status=='1'?'checked':''}} />
+                                                    <input type="radio" id="active"  name="status" value="1" {{$model->status=='1'?'checked':''}} />
                                                     <div class="state p-success">
                                                         <i class="icon mdi mdi-check"></i>
                                                         <label for="active">Published</label>
                                                     </div>
                                                 </div>
                                                 <div class="pretty p-icon p-round p-pulse">
-                                                    <input type="radio" id="inactive"   name="status" value="0" {{$gallery->status=='0'?'checked':''}}/>
+                                                    <input type="radio" id="inactive"   name="status" value="0" {{$model->status=='0'?'checked':''}}/>
                                                     <div class="state p-danger">
                                                         <i class="icon mdi mdi-check"></i>
                                                         <label for="inactive">Unpublished</label>
@@ -136,11 +134,14 @@
             var validator = $("#newForm").validate({
                 ignore: ".ql-container *",
                 messages: {
-                    gallery_category_id: {
-                        required: 'Gallery Category is required'
+                    brand_id: {
+                        required: 'Brand is required'
                     },
-                    image: {
-                        required: 'Gallery image is required'
+                    title: {
+                        required: 'Model name is required'
+                    },
+                    status: {
+                        required: 'Status is required'
                     }
                 }
             });

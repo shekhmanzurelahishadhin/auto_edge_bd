@@ -54,6 +54,8 @@ Route::get('about', [SinglePageController::class, 'about'])->name('about');
 Route::get('news', [SinglePageController::class, 'news'])->name('news');
 Route::get('news/{news_slug}', [SinglePageController::class, 'news_show'])->name('news.show');
 Route::get('auction-sheet-guide', [SinglePageController::class, 'auctionSheetGuide'])->name('auction-sheet-guide');
+Route::get('vehicles', [SinglePageController::class, 'vehicles'])->name('vehicles');
+Route::get('vehicles/{vehicle_slug}', [SinglePageController::class, 'vehicles_show'])->name('vehicles.show');
 
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::post('send-message', [HomeController::class, 'sendMessage'])->name('send-message');
