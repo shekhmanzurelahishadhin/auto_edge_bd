@@ -255,15 +255,7 @@
             $(".cancel").click(function() {
                 validator.resetForm();
             });
-            // $('#published_at').datepicker({
-            //     uiLibrary: 'bootstrap',
-            //     format: 'yyyy-mm-dd',
-            //     icons: {
-            //         rightIcon: '<i class="ri-calendar-todo-fill"></i>',
-            //         previousMonth: '<i class="ri-arrow-left-s-line"></i>',
-            //         nextMonth: '<i class="ri-arrow-right-s-line"></i>'
-            //     }
-            // });
+
         });
 
         $(document).on('change','#brand_id',function () {

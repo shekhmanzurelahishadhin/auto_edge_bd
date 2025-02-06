@@ -8,12 +8,14 @@ use App\Models\AuctionCategory;
 use App\Models\AuctionSheet;
 use App\Models\BiddingResult;
 use App\Models\Books;
+use App\Models\Brand;
 use App\Models\BusShift;
 use App\Models\BusStaff;
 use App\Models\Career;
 use App\Models\CitizenCharter;
 use App\Models\Department;
 use App\Models\Faculty;
+use App\Models\FuelType;
 use App\Models\Gallery;
 use App\Models\Goal;
 use App\Models\Institute;
@@ -34,6 +36,7 @@ use App\Models\VcSlider;
 use App\Models\VcSpeech;
 use App\Models\Vehicle;
 use App\Models\ViceChancellorInfo;
+use App\Models\Year;
 use Illuminate\Http\Request;
 
 class SinglePageController extends Controller
@@ -70,6 +73,7 @@ class SinglePageController extends Controller
         $data['news'] = News::where('status',1)->where('slug',$newsSlug)->first();
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
+        $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
         return view('frontend.news.show', $data);
     }
 
@@ -95,10 +99,14 @@ class SinglePageController extends Controller
 
     public function vehicles()
     {
-        $data['newses'] = News::where('status',1)->with('admin_created:id,name,image')->latest()->select('id','title','slug','short_description','image','created_by')->paginate(10);
+        $data['vehicles'] = Vehicle::where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->paginate(10);
+
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
-        $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
+        $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
+        $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
+        $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
+        $data['fuel_types'] = FuelType::latest()->get(['id','title']);
 
         return view('frontend.vehicle.vehicle',$data);
     }
@@ -110,6 +118,8 @@ class SinglePageController extends Controller
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
         $data['related_vehicles'] = Vehicle::where('status',1)->where('brand_id',$vehicle->brand_id)->take(10)->get();
+        $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
+
         return view('frontend.vehicle.vehicle-show', $data);
     }
 

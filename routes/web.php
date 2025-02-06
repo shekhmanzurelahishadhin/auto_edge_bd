@@ -59,6 +59,9 @@ Route::get('vehicles/{vehicle_slug}', [SinglePageController::class, 'vehicles_sh
 
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::post('send-message', [HomeController::class, 'sendMessage'])->name('send-message');
+Route::post('filter-vehicle', [HomeController::class, 'filterVehicle'])->name('filter-vehicle');
+Route::get('vehicles/brand/{brand}', [HomeController::class, 'vehiclesByBrand'])->name('vehicles.brand');
+Route::get('vehicles/year/{year}', [HomeController::class, 'vehiclesByYear'])->name('vehicles.year');
 
 
 Route::get('journal', [FrontController::class, 'journal'])->name('journal.index');

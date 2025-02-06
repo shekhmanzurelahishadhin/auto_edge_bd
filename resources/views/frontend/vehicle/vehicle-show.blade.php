@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="b-title-page bg-primary_a">Vehicle Details</h1>
+                        <h1 class="b-title-page bg-primary_a">{{$featured_vehicle_title->page_title??null}}</h1>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <ol class="breadcrumb">
                         <li><a href="{{route('root')}}"><i class="icon fa fa-home"></i></a>
                         </li>
-                        <li><a href="{{route('vehicles')}}">Vehicles</a>
+                        <li><a href="{{route('vehicles')}}">{{$featured_vehicle_title->page_title??null}}</a>
                         </li>
                         <li class="active">Vehicle Details</li>
                     </ol>

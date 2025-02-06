@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="b-title-page bg-primary_a">news blog</h1>
+                        <h1 class="b-title-page bg-primary_a">{{$latest_news_title->page_title??null}}</h1>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                     <ol class="breadcrumb">
                         <li><a href="{{route('root')}}"><i class="icon fa fa-home"></i></a>
                         </li>
-                        <li><a href="{{route('news')}}">Latest News</a>
+                        <li><a href="{{route('news')}}">{{$latest_news_title->page_title??null}}</a>
                         </li>
                         <li class="active">Full News</li>
                     </ol>

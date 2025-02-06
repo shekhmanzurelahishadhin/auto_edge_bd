@@ -38,9 +38,9 @@ class VehicleController extends Controller
     public function create()
     {
         Gate::authorize('vehicle.create');
-        $brands = Brand::latest()->get(['id','title']);
-        $years = Year::latest()->get(['id','title']);
-        $fuel_types = FuelType::latest()->get(['id','title']);
+        $brands = Brand::where('status',1)->latest()->get(['id','title']);
+        $years = Year::where('status',1)->latest()->get(['id','title']);
+        $fuel_types = FuelType::where('status',1)->latest()->get(['id','title']);
         return view('backend.vehicle.create',compact('brands','fuel_types','years'));
     }
 
@@ -111,10 +111,10 @@ class VehicleController extends Controller
     {
         Gate::authorize('vehicle.edit');
         $vehicles = Vehicle::withTrashed()->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->get();
-        $models = VehicleModel::where('brand_id',$vehicle->brand_id)->latest()->get(['id','title']);
-        $brands = Brand::latest()->get(['id','title']);
-        $years = Year::latest()->get(['id','title']);
-        $fuel_types = FuelType::latest()->get(['id','title']);
+        $models = VehicleModel::where('status',1)->where('brand_id',$vehicle->brand_id)->latest()->get(['id','title']);
+        $brands = Brand::where('status',1)->latest()->get(['id','title']);
+        $years = Year::where('status',1)->latest()->get(['id','title']);
+        $fuel_types = FuelType::where('status',1)->latest()->get(['id','title']);
 
         $data['vehicle'] = $vehicle;
         $data['vehicles'] = $vehicles;

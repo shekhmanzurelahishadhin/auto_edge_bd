@@ -27,7 +27,7 @@
                     <ul class="yamm main-menu nav navbar-nav">
                         <li><a class="{{Route::is('root') ? 'active-nav' : ''}}" href="{{route('root')}}" data-toggle="">Home</a></li>
                         <li><a href="{{route('about')}}" class="{{Route::is('about') ? 'active-nav' : ''}}">About Us</a></li>
-                        <li><a href="{{route('vehicles')}}" class="{{Route::is('vehicles')||Route::is('vehicles.show') ? 'active-nav' : ''}}">Vehicles</a></li>
+                        <li><a href="{{route('vehicles')}}" class="{{Route::is('vehicles')||Route::is('vehicles.show')||Route::is('vehicles.brand')||Route::is('vehicles.year') ? 'active-nav' : ''}}">Vehicles</a></li>
                         <li><a href="{{route('news')}}" class="{{Route::is('news')||Route::is('news.show') ? 'active-nav' : ''}}">News</a></li>
                         <li><a href="{{route('auction-sheet-guide')}}" class="{{Route::is('auction-sheet-guide') ? 'active-nav' : ''}}">Auction Sheet Guide</a></li>
 {{--                        <li class="dropdown"><a class="dropdown-toggle" href="car-details.html" data-toggle="dropdown">Pages<b class="caret"></b></a>--}}
