@@ -53,6 +53,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('brands',Brand::where('status',1)->latest()->take(10)->get(['id','title','slug']));
             $view->with('years',Year::where('status',1)->latest()->take(10)->get(['id','title']));
         });
+       view()->composer(['layouts/sidebar'], function ($view){
+           $view->with('logo',Logo::latest()->first());
+       });
 //        view()->composer(['layouts/frontend/partials/header'], function ($view){
 //            $view->with('last_updated',Audit::latest()->first());
 //            $view->with('logo',Logo::latest()->first());
