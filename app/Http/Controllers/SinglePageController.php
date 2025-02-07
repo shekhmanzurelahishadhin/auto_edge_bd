@@ -68,7 +68,7 @@ class SinglePageController extends Controller
         return view('frontend.news',$data);
     }
 
-    public function news_show($newsSlug)
+    public function newsShow($newsSlug)
     {
         $data['news'] = News::where('status',1)->where('slug',$newsSlug)->first();
         $banner = Logo::latest()->first(['page_banner']);
@@ -83,9 +83,9 @@ class SinglePageController extends Controller
         $data['banner'] = $banner->page_banner;
         $data['auction_sheet_guide_title'] = PageTitle::where('page_code','auction_sheet_guide')->first(['page_title','page_sub_title']);
         $data['about_auction'] = AuctionAbout::latest()->first();
-        $data['bidding_results'] = BiddingResult::get(['id','outcomes','outcomes_status']);
-        $data['auction_sheets'] = AuctionSheet::get(['id','title','image']);
-        $data['auction_categories'] = AuctionCategory::with('grades')->get();
+        $data['bidding_results'] = BiddingResult::where('status',1)->get(['id','outcomes','outcomes_status']);
+        $data['auction_sheets'] = AuctionSheet::where('status',1)->get(['id','title','image']);
+        $data['auction_categories'] = AuctionCategory::where('status',1)->with('grades')->get();
 //        dd($data['auction_grades']);
 
         return view('frontend.auction-sheet-guide',$data);
@@ -111,7 +111,7 @@ class SinglePageController extends Controller
         return view('frontend.vehicle.vehicle',$data);
     }
 
-    public function vehicles_show($vehicleSlug)
+    public function vehiclesShow($vehicleSlug)
     {
         $vehicle = Vehicle::where('status',1)->where('slug',$vehicleSlug)->first();
         $data['vehicle'] = $vehicle;
@@ -121,6 +121,38 @@ class SinglePageController extends Controller
         $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
 
         return view('frontend.vehicle.vehicle-show', $data);
+    }
+
+    public function vehiclesCompare($vehicleSlug)
+    {
+        $vehicle = Vehicle::where('status',1)->where('slug',$vehicleSlug)->first();
+        $data['vehicle'] = $vehicle;
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        $data['compare_vehicle_title'] = PageTitle::where('page_code','compare_vehicles')->first(['page_title','page_sub_title']);
+
+        return view('frontend.vehicle.vehicle-compare', $data);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $vehicles = Vehicle::with(['brand', 'model', 'year', 'fuel_type'])
+            ->where('title', 'like', "%$query%")
+            ->orWhereHas('brand', function ($q) use ($query) {
+                $q->where('title', 'like', "%$query%");
+            })
+            ->orWhereHas('model', function ($q) use ($query) {
+                $q->where('title', 'like', "%$query%");
+            })
+            ->take(10)->get();
+        return response()->json($vehicles);
+    }
+
+    public function vehicleSearchResult($id)
+    {
+        $vehicle = Vehicle::with(['brand', 'model', 'year', 'fuel_type'])->findOrFail($id);
+        return response()->json($vehicle);
     }
 
 }

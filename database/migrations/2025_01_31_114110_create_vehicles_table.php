@@ -34,7 +34,7 @@ return new class extends Migration
             $table->text('short_description');
             $table->longText('description');
             $table->text('main_image');
-            $table->double('price')->nullable();
+            $table->double('price', 10, 2)->nullable();
             $table->boolean('status')->default(true)->comment('0==active & 1==inactive');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

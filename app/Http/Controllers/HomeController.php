@@ -285,7 +285,7 @@ class HomeController extends Controller
         $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
         $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
         $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
-        $data['fuel_types'] = FuelType::latest()->get(['id','title']);
+        $data['fuel_types'] = FuelType::where('status',1)->latest()->get(['id','title']);
         $data['searched_brand'] = $brandId;
 
         return view('frontend.vehicle.vehicle',$data);
@@ -304,10 +304,12 @@ class HomeController extends Controller
         $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
         $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
         $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
-        $data['fuel_types'] = FuelType::latest()->get(['id','title']);
+        $data['fuel_types'] = FuelType::where('status',1)->latest()->get(['id','title']);
         $data['searched_year'] = $yearId;
 
         return view('frontend.vehicle.vehicle',$data);
     }
+
+
 
 }

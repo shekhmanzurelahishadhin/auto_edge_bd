@@ -63,5 +63,12 @@ class LookupSeeder extends Seeder
             'name' => 'Auction Sheet Guide',
             'code' => 'auction_sheet_guide',
         ]);
+        Lookup::updateOrCreate([
+            'name' => 'Compare Vehicle',
+        ],[
+            'type' => 'title_page',
+            'name' => 'Compare Vehicle',
+            'code' => 'compare_vehicles',
+        ]);
     }
 }

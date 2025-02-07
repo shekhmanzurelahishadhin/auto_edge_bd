@@ -34,14 +34,14 @@
                         <h2 class="ui-title-block">{{$title->page_title??''}}</h2>
                         <div class="ui-subtitle-block">{{$title->page_sub_title??''}}</div>
                         <div class="ui-decor"></div>
+                        <div class="col-lg-12 about-us-img-section">
+                            <img src="{{ asset(isset($about->image)?$about->image:'') }}" style="height:100%;width: 100%" class="" alt="">
+                        </div>
                         <div class="b-about-main">
                             {!! $about->long_details??null !!}
                         </div>
 
                     </div>
-                </div>
-                <div class="col-lg-12 about-us-img-section">
-                    <img src="{{ asset(isset($about->image)?$about->image:'') }}" class="" alt="">
                 </div>
             </div>
         </div>

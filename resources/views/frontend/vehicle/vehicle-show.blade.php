@@ -36,6 +36,8 @@
                     <section class="b-car-details">
                         <div class="b-car-details__header">
                             <h2 class="b-car-details__title">{{$vehicle->title??null}}</h2>
+                            <div class="b-car-details__links"><a class="b-car-details__link" href="{{route('vehicles.compare',$vehicle->slug)}}"><i class="icon fa fa-exchange text-primary"></i> Add to Compare</a>
+                            </div>
                         </div>
                         <div class="slider-car-details slider-pro" id="slider-car-details">
                             <div class="sp-slides">

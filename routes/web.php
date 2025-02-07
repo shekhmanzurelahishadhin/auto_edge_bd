@@ -52,19 +52,16 @@ Route::get('contact-us', [SinglePageController::class, 'contact'])->name('contac
 Route::get('gallery', [SinglePageController::class, 'gallery'])->name('gallery');
 Route::get('about', [SinglePageController::class, 'about'])->name('about');
 Route::get('news', [SinglePageController::class, 'news'])->name('news');
-Route::get('news/{news_slug}', [SinglePageController::class, 'news_show'])->name('news.show');
+Route::get('news/{news_slug}', [SinglePageController::class, 'newsShow'])->name('news.show');
 Route::get('auction-sheet-guide', [SinglePageController::class, 'auctionSheetGuide'])->name('auction-sheet-guide');
 Route::get('vehicles', [SinglePageController::class, 'vehicles'])->name('vehicles');
-Route::get('vehicles/{vehicle_slug}', [SinglePageController::class, 'vehicles_show'])->name('vehicles.show');
+Route::get('vehicles/{vehicle_slug}', [SinglePageController::class, 'vehiclesShow'])->name('vehicles.show');
+Route::get('vehicles/compare/{vehicle_slug}', [SinglePageController::class, 'vehiclesCompare'])->name('vehicles.compare');
+Route::get('/search-vehicles', [SinglePageController::class, 'search'])->name('vehicles.search');
+Route::get('/vehicles-search-result/{id}', [SinglePageController::class, 'vehicleSearchResult'])->name('vehicles.search-result');
 
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::post('send-message', [HomeController::class, 'sendMessage'])->name('send-message');
 Route::post('filter-vehicle', [HomeController::class, 'filterVehicle'])->name('filter-vehicle');
 Route::get('vehicles/brand/{brand}', [HomeController::class, 'vehiclesByBrand'])->name('vehicles.brand');
 Route::get('vehicles/year/{year}', [HomeController::class, 'vehiclesByYear'])->name('vehicles.year');
-
-
-Route::get('journal', [FrontController::class, 'journal'])->name('journal.index');
-Route::get('journal/{journal_slug}', [FrontController::class, 'journal_show'])->name('journal.show');
-Route::get('journal/volume/{volume_slug}', [FrontController::class, 'volume_journal_show'])->name('volume.journal.show');
-Route::get('journal/volume/{id}/details', [FrontController::class, 'volume_read'])->name('volume.journal.read');
