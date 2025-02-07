@@ -38,6 +38,46 @@
                         <i class="ri-dashboard-2-line"></i> <span>@lang('translation.dashboards')</span>
                     </a>
                 </li>
+
+
+                @if (auth()->guard('admin')->user()->can('roles.index') ||
+                        auth()->guard('admin')->user()->can('users.index'))
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span>User Management</span></li>
+
+                    {{-- access control route end --}}
+
+
+                    @if (Request::is('admin/roles*') || Request::is('admin/users*'))
+                        @php($userRolesNav = true)
+                    @endif
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link {{ isset($userRolesNav) ? 'active' : '' }}"
+                           href="#sidebarUserManagement" data-bs-toggle="collapse" role="button"
+                           aria-expanded="false" aria-controls="sidebarUserManagement">
+                            <i class="ri-user-settings-line"></i> <span>Access Control</span>
+                        </a>
+                        <div class="collapse menu-dropdown {{ isset($userRolesNav) ? 'show' : '' }}"
+                             id="sidebarUserManagement">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.roles.index') }}"
+                                       class="nav-link {{ Request::is('admin/roles*') ? 'active' : '' }}">
+                                        Roles
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.index') }}"
+                                       class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
+                                        Admin Users
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+                {{-- access control route end --}}
+                <li class="menu-title"><i class="ri-more-fill"></i> <span>Site Management</span></li>
                 @if (Request::is('admin/model*')||
                     Request::is('admin/brand*')||
                     Request::is('admin/fuel-type*')||
@@ -158,85 +198,8 @@
                     </li>
                 @endcanany
 
-                @if (auth()->guard('admin')->user()->can('roles.index') ||
-                        auth()->guard('admin')->user()->can('users.index'))
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span>User Management</span></li>
-
-                    {{-- access control route end --}}
 
 
-                    @if (Request::is('admin/roles*') || Request::is('admin/users*'))
-                        @php($userRolesNav = true)
-                    @endif
-
-                    <li class="nav-item">
-                        <a class="nav-link menu-link {{ isset($userRolesNav) ? 'active' : '' }}"
-                           href="#sidebarUserManagement" data-bs-toggle="collapse" role="button"
-                           aria-expanded="false" aria-controls="sidebarUserManagement">
-                            <i class="ri-user-settings-line"></i> <span>Access Control</span>
-                        </a>
-                        <div class="collapse menu-dropdown {{ isset($userRolesNav) ? 'show' : '' }}"
-                             id="sidebarUserManagement">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.roles.index') }}"
-                                       class="nav-link {{ Request::is('admin/roles*') ? 'active' : '' }}">
-                                        Roles
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.users.index') }}"
-                                       class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
-                                        Admin Users
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                @endif
-                {{-- access control route end --}}
-
-                @if (auth()->guard('admin')->user()->can('backup.index'))
-                    @if (Request::is('admin/backup*') || Request::is('admin/user-log*'))
-                        @php($systemSettingNav = true)
-                    @endif
-
-                    <li class="nav-item">
-                        <a class="nav-link menu-link {{ isset($systemSettingNav) ? 'active' : '' }}"
-                           href="#systemSettingNav" data-bs-toggle="collapse" role="button" aria-expanded="false"
-                           aria-controls="systemSettingNav">
-                            <i class="ri-settings-3-line"></i> <span>System Setting</span>
-                        </a>
-                        <div class="collapse menu-dropdown {{ isset($systemSettingNav) ? 'show' : '' }}"
-                             id="systemSettingNav">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.backup.index') }}"
-                                       class="nav-link {{ Request::is('admin/backup*') ? 'active' : '' }}"
-                                       data-key="t-basic-tables">Backups</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.show.log') }}"
-                                       class="nav-link {{ Request::is('admin/user-log*') ? 'active' : '' }}"
-                                       data-key="t-grid-js">Logs</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link" data-key="t-grid-js">Setting</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                @endif
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="ri-logout-box-r-line"></i> <span data-key="t-widgets">{{ __('Logout') }}</span>
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </li>
                 @if (auth()->guard('admin')->user()->can('slider.index') ||
                                auth()->guard('admin')->user()->can('gallery.index') ||
                                auth()->guard('admin')->user()->can('gallery-category.index') ||
@@ -246,7 +209,7 @@
                                auth()->guard('admin')->user()->can('page-title.index') ||
                                auth()->guard('admin')->user()->can('settings.index') )
 
-                    <li class="menu-title"><i class="ri-more-fill"></i> <span>Site Management</span></li>
+
 
                     @if (Request::is('admin/slider*')||
                          Request::is('admin/gallery-category/*')||
@@ -344,7 +307,7 @@
                         <a class="nav-link menu-link {{ isset($settingsNav)?'active':'' }}" href="#settings"
                            data-bs-toggle="collapse" role="button"
                            aria-expanded="false" aria-controls="settings">
-                            <i class="ri-settings-3-line"></i> <span>Settings</span>
+                            <i class="ri-settings-3-line"></i> <span>Site Settings</span>
                         </a>
                         <div class="collapse menu-dropdown {{ isset($settingsNav)?'show':'' }}" id="settings">
                             <ul class="nav nav-sm flex-column">
@@ -376,18 +339,55 @@
                                            data-key="t-basic-tables">Messages</a>
                                     </li>
                                 @endcan
-                                @can('report.index')
-                                    <li class="nav-item">
-                                        <a href=""
-                                           class="nav-link"
-                                           data-key="t-basic-tables">Reports</a>
-                                    </li>
-                                @endcan
+{{--                                @can('report.index')--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href=""--}}
+{{--                                           class="nav-link"--}}
+{{--                                           data-key="t-basic-tables">Reports</a>--}}
+{{--                                    </li>--}}
+{{--                                @endcan--}}
                             </ul>
                         </div>
                     </li>
                 @endcan
 
+                @if (auth()->guard('admin')->user()->can('backup.index'))
+                    @if (Request::is('admin/backup*') || Request::is('admin/user-log*'))
+                        @php($systemSettingNav = true)
+                    @endif
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link {{ isset($systemSettingNav) ? 'active' : '' }}"
+                           href="#systemSettingNav" data-bs-toggle="collapse" role="button" aria-expanded="false"
+                           aria-controls="systemSettingNav">
+                            <i class="ri-settings-3-line"></i> <span>System Setting</span>
+                        </a>
+                        <div class="collapse menu-dropdown {{ isset($systemSettingNav) ? 'show' : '' }}"
+                             id="systemSettingNav">
+                            <ul class="nav nav-sm flex-column">
+{{--                                <li class="nav-item">--}}
+{{--                                    <a href="{{ route('admin.backup.index') }}"--}}
+{{--                                       class="nav-link {{ Request::is('admin/backup*') ? 'active' : '' }}"--}}
+{{--                                       data-key="t-basic-tables">Backups</a>--}}
+{{--                                </li>--}}
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.show.log') }}"
+                                       class="nav-link {{ Request::is('admin/user-log*') ? 'active' : '' }}"
+                                       data-key="t-grid-js">Logs</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('logout') }}"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="ri-logout-box-r-line"></i> <span data-key="t-widgets">{{ __('Logout') }}</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

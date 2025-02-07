@@ -5,126 +5,115 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Adapter\Local;
-use Request;
+use Illuminate\Http\Request;
 
 class BackupController extends Controller
 {
+    /**
+     * Display a list of backup files.
+     */
     public function index()
     {
         Gate::authorize('backup.index');
 
-        if (! count(config('backup.backup.destination.disks'))) {
+        // Check if backup disks are configured
+        if (!count(config('backup.backup.destination.disks'))) {
             dd(trans('backpack::backup.no_disks_configured'));
         }
 
-        $this->data['backup'] = [];
+        $backups = [];
 
+        // Loop through configured disks and gather backup files
         foreach (config('backup.backup.destination.disks') as $disk_name) {
             $disk = Storage::disk($disk_name);
             $adapter = $disk->getAdapter();
             $files = $disk->allFiles();
 
-            // make an array of backup files, with their filesize and creation date
-            foreach ($files as $k => $f) {
-                // only take the zip files into account
-                if (substr($f, -4) == '.zip' && $disk->exists($f)) {
-                    $this->data['backup'][] = [
-                        'file_path' => $f,
-                        'file_name' => str_replace('backup/', '', $f),
-                        'file_size' => $disk->size($f),
-                        'last_modified' => $disk->lastModified($f),
+            // Collect backup files (only .zip files)
+            foreach ($files as $file) {
+                if (substr($file, -4) == '.zip' && $disk->exists($file)) {
+                    $backups[] = [
+                        'file_path' => $file,
+                        'file_name' => str_replace('backup/', '', $file),
+                        'file_size' => $disk->size($file),
+                        'last_modified' => $disk->lastModified($file),
                         'disk' => $disk_name,
-                        'download' => ($adapter instanceof Local) ? true : false,
+                        'download' => ($adapter instanceof \League\Flysystem\Local\LocalFilesystemAdapter),
                     ];
                 }
             }
         }
 
-        // reverse the backup, so the newest one would be on top
-        $data['backups'] = array_reverse($this->data['backup']);
+        // Reverse the backups array to show the newest first
+        $data['backups'] = array_reverse($backups);
 
         return view('backend.backup.index', $data);
     }
 
+    /**
+     * Create a new backup.
+     */
     public function create()
     {
         Gate::authorize('backup.create');
+
         try {
-            // start the backup process
+            // Run the backup command
             Artisan::call('backup:run');
             $output = Artisan::output();
-            flash()->addSuccess('Database Backup create Successfully');
+
+            // Flash a success message
+            flash()->addSuccess('Database Backup created successfully.');
 
             return redirect()->back();
         } catch (\Exception $e) {
-            Response::error($e->getMessage());
+            // Log the error and flash an error message
+            \Log::error('Backup failed: ' . $e->getMessage());
+            flash()->addError('Backup failed: ' . $e->getMessage());
 
-            return redirect()->back();
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 
     /**
-     * Downloads a backup zip file.
+     * Download a backup file.
      */
-    public function download()
+    public function download(Request $request)
     {
         Gate::authorize('backup.download');
 
-        $disk = Storage::disk(Request::input('disk'));
-        $file_name = Request::input('file_name');
+        $disk = Storage::disk($request->input('disk'));
+        $file_name = $request->input('file_name');
         $adapter = $disk->getAdapter();
 
-        if ($adapter instanceof Local) {
-            $storage_path = $disk->getAdapter()->getPathPrefix();
-
-            if ($disk->exists($file_name)) {
-                return response()->download($storage_path.$file_name);
-            } else {
-                flash()->addWarning('This Backup file does not exists');
-
-                return redirect()->back();
-            }
+        // Check if the file exists and is downloadable
+        if ($adapter instanceof \League\Flysystem\Local\LocalFilesystemAdapter && $disk->exists($file_name)) {
+            $storage_path = $disk->path($file_name);
+            return response()->download($storage_path);
         } else {
-            flash()->addWarning('This Backup file does not exists');
-
+            flash()->addWarning('This backup file does not exist or cannot be downloaded.');
             return redirect()->back();
         }
     }
 
     /**
-     * Deletes a backup file.
+     * Delete a backup file.
      */
     public function delete($file_name)
     {
-
         Gate::authorize('backup.destroy');
 
-        $filepath = Storage::disk('public')->url($file_name);
-        if (($filepath)) {
-            Storage::disk('public')->delete($file_name);
-            flash()->addSuccess('Your Backup file Delete Successfully', 'Backup file Deleted');
+        $disk = Storage::disk('public');
 
-            return redirect()->back();
+        // Check if the file exists and delete it
+        if ($disk->exists($file_name)) {
+            $disk->delete($file_name);
+            flash()->addSuccess('Backup file deleted successfully.');
         } else {
-            notify()->warning('This Backup file does not exists', 'File does\'nt Exists');
-
-            return redirect()->back();
+            flash()->addWarning('This backup file does not exist.');
         }
 
-        /*
-         * old format
-         *
-         *  $disk = Storage::disk(Request::input('disk'));
-         if ($disk->exists($file_name)) {
-             $disk->delete($file_name);
-              flash()->addSuccess('Your Backup file Delete Successfully', 'Backup file Deleted');
-             return redirect()->back();
-         } else {
-             notify()->warning('This Backup file does not exists', 'File does\'nt Exists');
-             return redirect()->back();
-         }*/
+        return redirect()->back();
     }
 }
