@@ -25,7 +25,7 @@ class StorePageTitleRequest extends FormRequest
             'page_title' => 'required',
             'page_sub_title' => 'required',
             'page_code' => 'required',
-            'status' => 'required',
+//            'status' => 'required',
         ];
     }
 }
