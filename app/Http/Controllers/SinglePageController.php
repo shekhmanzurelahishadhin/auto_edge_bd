@@ -35,6 +35,7 @@ use App\Models\VcGallery;
 use App\Models\VcSlider;
 use App\Models\VcSpeech;
 use App\Models\Vehicle;
+use App\Models\VehicleModel;
 use App\Models\ViceChancellorInfo;
 use App\Models\Year;
 use Illuminate\Http\Request;
@@ -99,9 +100,10 @@ class SinglePageController extends Controller
 
     public function vehicles()
     {
-        $data['vehicles'] = Vehicle::where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->paginate(10);
+        $data['vehicles'] = Vehicle::where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->take(6)->orderBy('id','desc')->get();
 
         $banner = Logo::latest()->first(['page_banner']);
+        $data['total_vehicles_count'] = Vehicle::where('status',1)->count();
         $data['banner'] = $banner->page_banner;
         $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
         $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
@@ -153,6 +155,56 @@ class SinglePageController extends Controller
     {
         $vehicle = Vehicle::with(['brand', 'model', 'year', 'fuel_type'])->findOrFail($id);
         return response()->json($vehicle);
+    }
+
+    public function loadMore(Request $request)
+    {
+        $offset = $request->offset ?? 0;
+        // Start building the query
+        $query = Vehicle::where('status', 1)->with('brand:id,title', 'model:id,title', 'year:id,title', 'fuel_type:id,title');
+
+        // Apply filters dynamically if they exist
+        if ($request->keyword !== null) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->keyword . '%')
+                    ->orWhere('short_description', 'like', '%' . $request->keyword . '%');
+            });
+        }
+
+        if ($request->brand_id !== null) {
+            $query->where('brand_id', $request->brand_id);
+        }
+
+        if ($request->model_id !== null) {
+            $query->where('model_id', $request->model_id);
+        }
+
+        if ($request->year_id !== null) {
+            $query->where('year_id', $request->year_id);
+        }
+
+        if ($request->fuel_type_id !== null) {
+            $query->where('fuel_type_id', $request->fuel_type_id);
+        }
+        // Fetch next set of vehicles using offset and limit (latest first)
+        $vehicles = $query->orderBy('id', 'desc')->skip($offset)->take(6)->get();
+
+
+        $html = '';
+        foreach ($vehicles as $vehicle) {
+            $html .= view('frontend.vehicle.partials', compact('vehicle'))->render();
+        }
+
+        return response()->json([
+            'vehicles' => $html,
+        ]);
+    }
+
+
+    public function getModelByBrandId()
+    {
+        $models = VehicleModel::where('brand_id',$_GET['id'])->where('status',1)->get(['id','brand_id','title']);
+        return response()->json($models);
     }
 
 }

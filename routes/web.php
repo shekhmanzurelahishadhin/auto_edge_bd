@@ -1,19 +1,13 @@
 <?php
 
-use App\Http\Controllers\ApaController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InstituteController;
-use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\SinglePageController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserPublicationController;
-use App\Http\Controllers\UserResearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ModelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +53,8 @@ Route::get('vehicles/{vehicle_slug}', [SinglePageController::class, 'vehiclesSho
 Route::get('vehicles/compare/{vehicle_slug}', [SinglePageController::class, 'vehiclesCompare'])->name('vehicles.compare');
 Route::get('/search-vehicles', [SinglePageController::class, 'search'])->name('vehicles.search');
 Route::get('/vehicles-search-result/{id}', [SinglePageController::class, 'vehicleSearchResult'])->name('vehicles.search-result');
+Route::get('/load-more-vehicle', [SinglePageController::class, 'loadMore'])->name('load-more.vehicle');
+Route::get('getModelByBrandId', [SinglePageController::class, 'getModelByBrandId'])->name('getModelByBrandId');
 
 Route::post('subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::post('send-message', [HomeController::class, 'sendMessage'])->name('send-message');

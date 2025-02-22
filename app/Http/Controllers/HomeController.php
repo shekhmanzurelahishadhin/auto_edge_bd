@@ -261,15 +261,15 @@ class HomeController extends Controller
             $query->where('fuel_type_id', $request->fuel_type_id);
         }
 
-
+        $vehicle_total_count = $query->get()->count();
         // Execute the query and get the results
-        $vehicles = $query->get();
-
+        $vehicles = $query->latest()->take(6)->orderBy('id','desc')->get();
+        $vehicle_count = $vehicles->count();
         // Render the view into a string
         $view = view('frontend.vehicle.search-vehicle', compact('vehicles'))->render();
 
         // Return the view as JSON
-        return response()->json(['html' => $view]);
+        return response()->json(['html' => $view,'vehicle_count'=>$vehicle_count,'vehicle_total_count'=>$vehicle_total_count]);
     }
 
     public function vehiclesByBrand($brand)
@@ -278,10 +278,11 @@ class HomeController extends Controller
         $brandId = base64_decode($brand);
 
         // Fetch vehicles by decoded brand ID
-        $data['vehicles'] = Vehicle::where('brand_id', $brandId)->where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->paginate(10);
+        $data['vehicles'] = Vehicle::where('brand_id', $brandId)->where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->take(6)->orderBy('id','desc')->get();
 
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
+        $data['total_vehicles_count'] = Vehicle::where('brand_id', $brandId)->where('status',1)->count();
         $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
         $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
         $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
@@ -297,10 +298,11 @@ class HomeController extends Controller
         $yearId = base64_decode($year);
 
         // Fetch vehicles by decoded brand ID
-        $data['vehicles'] = Vehicle::where('year_id', $yearId)->where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->paginate(10);
+        $data['vehicles'] = Vehicle::where('year_id', $yearId)->where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->take(6)->orderBy('id','desc')->get();
 
         $banner = Logo::latest()->first(['page_banner']);
         $data['banner'] = $banner->page_banner;
+        $data['total_vehicles_count'] = Vehicle::where('year_id', $yearId)->where('status',1)->count();
         $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
         $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
         $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
