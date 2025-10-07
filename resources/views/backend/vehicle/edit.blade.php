@@ -156,7 +156,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="other_images">Other Images <strong class="text-danger">* <br><small>(Recommended Size 750 X 400 | Max: 50 MB)</small></strong></label>
-                                            <input class="file-upload dropify" name="other_images[]" id="other_images" type="file" multiple data-default-file="{{asset($vehicle->other_images[0]->image)}}">
+                                            <input class="file-upload dropify" name="other_images[]" id="other_images" type="file" multiple data-default-file="{{isset($vehicle->other_images)??asset($vehicle->other_images[0]->image)}}">
                                             @error('other_images')
                                             <span class="text-danger">{{ $message }}</span>
                                             @enderror
