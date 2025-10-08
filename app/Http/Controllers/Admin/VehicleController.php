@@ -58,6 +58,7 @@ class VehicleController extends Controller
             $vehicle->year_id = $request->year_id;
             $vehicle->fuel_type_id = $request->fuel_type_id;
             $vehicle->title = $request->title;
+            $vehicle->price = $request->price;
             $vehicle->slug = str_slug($request->title);
             $vehicle->short_description = $request->short_description;
             $vehicle->description = $request->description;
@@ -141,6 +142,7 @@ class VehicleController extends Controller
             $vehicle->year_id = $request->year_id;
             $vehicle->fuel_type_id = $request->fuel_type_id;
             $vehicle->title = $request->title;
+            $vehicle->price = $request->price;
             $vehicle->slug = str_slug($request->title);
             $vehicle->short_description = $request->short_description;
             $vehicle->description = $request->description;

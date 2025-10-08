@@ -109,7 +109,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3 col-md-12">
+                                                <div class="mb-3 col-md-6">
                                                     <label for="title">{{ __('Vehicle Title') }}: <strong
                                                             class="text-danger">*</strong></label>
                                                     <input id="title" type="text"  class="form-control @error('title') is-invalid @enderror"  value="{{ $vehicle->title??'' }}" name="title" required>
@@ -117,6 +117,15 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="price">{{ __('Sell Price') }}: <strong
+                                                            class="text-danger">*</strong></label>
+                                                    <input id="price" type="text"  class="form-control @error('price') is-invalid @enderror"  value="{{ $vehicle->price??'' }}" name="price" required>
+                                                    @error('price')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
@@ -241,6 +250,9 @@
                     },
                     title: {
                         required: 'Vehicle title is required'
+                    },
+                    price: {
+                        required: 'Vehicle price is required'
                     },
                     description: {
                         required: 'Description is required'

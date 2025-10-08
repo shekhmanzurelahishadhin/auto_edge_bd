@@ -48,6 +48,7 @@
                                 <th>Model</th>
                                 <th>Year</th>
                                 <th>Fuel Type</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Updated By</th>
                                 <th>Actions</th>
@@ -68,6 +69,7 @@
                                     <td>{{$data->model->title??null}}</td>
                                     <td>{{$data->year->title??null}}</td>
                                     <td>{{$data->fuel_type->title??null}}</td>
+                                    <td>{{$data->price??null}}</td>
                                     <td>
                                         @if($data->deleted_at)
                                             <span class="badge rounded-pill badge-soft-danger">Trashed</span>

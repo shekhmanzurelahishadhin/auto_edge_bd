@@ -104,11 +104,20 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3 col-md-12">
+                                                <div class="mb-3 col-md-6">
                                                     <label for="title">{{ __('Vehicle Title') }}: <strong
                                                             class="text-danger">*</strong></label>
                                                     <input id="title" type="text"  class="form-control @error('title') is-invalid @enderror"  value="{{ old('title') }}" name="title" required>
                                                     @error('title')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="price">{{ __('Sell Price') }}: <strong
+                                                            class="text-danger">*</strong></label>
+                                                    <input id="price" type="text"  class="form-control @error('price') is-invalid @enderror"  value="{{ old('price') }}" name="price" required>
+                                                    @error('price')
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -237,6 +246,9 @@
                     },
                     title: {
                         required: 'Vehicle title is required'
+                    },
+                    price: {
+                        required: 'Vehicle price is required'
                     },
                     image: {
                         required: 'Vehicle image is required'

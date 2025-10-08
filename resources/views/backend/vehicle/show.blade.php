@@ -50,6 +50,7 @@
                     <p><b>Model: </b>{{ $vehicle->model->title??null }}</p>
                     <p><b>Year: </b>{{ $vehicle->year->title??null }}</p>
                     <p><b>Fuel Type: </b>{{ $vehicle->fuel_type->title??null }}</p>
+                    <p><b>Price: </b>{{ $vehicle->price??null }}</p>
                     <p><b>Short Description: </b>{{ $vehicle->short_description??null }}</p>
                     <div><b>Description:</b><br>
                         {!! $vehicle->description !!}
