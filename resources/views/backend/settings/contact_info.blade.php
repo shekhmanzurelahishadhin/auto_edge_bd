@@ -80,6 +80,18 @@
                                                     @enderror
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <label for="website_maps">{{ __('Website Maps') }}: <strong
+                                                            class="text-danger">*</strong></label>
+                                                    <textarea id="website_maps" type="text"
+                                                              class="form-control @error('website_maps') is-invalid @enderror"
+                                                              name="website_maps" required>{{$values['website_maps']??null}}</textarea>
+                                                    @error('website_maps')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -135,6 +147,9 @@
                     },
                     footer_details: {
                         required: 'Details is required'
+                    },
+                    website_maps: {
+                        required: 'Maps is required'
                     },
                     phone: {
                         required: 'Phone number is required'

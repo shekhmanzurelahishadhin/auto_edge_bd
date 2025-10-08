@@ -7,17 +7,22 @@ use App\Models\Activity;
 use App\Models\Brand;
 use App\Models\Event;
 use App\Models\Faculty;
+use App\Models\FuelType;
 use App\Models\Gallery;
 use App\Models\GalleryCategory;
 use App\Models\Institute;
+use App\Models\Logo;
 use App\Models\News;
 use App\Models\Notice;
 use App\Models\PageTitle;
 use App\Models\Seminar;
 use App\Models\SendMessage;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Subscribe;
 use App\Models\User;
+use App\Models\Vehicle;
+use App\Models\Year;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -63,6 +68,7 @@ class HomeController extends Controller
             $query->where('status', 1)->latest()->take(10);
         }])->get();
         $data['gallery_categories'] = GalleryCategory::where('status',1)->latest()->take(5)->get(['id','title']);
+        $data['vehicles'] = Vehicle::where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->take(10)->get();
 
 
         $data['about_title'] = PageTitle::where('page_code','about_us')->first(['page_title','page_sub_title']);
@@ -71,6 +77,7 @@ class HomeController extends Controller
         $data['latest_news_title'] = PageTitle::where('page_code','latest_news')->first(['page_title','page_sub_title']);
         $data['contact_us_title'] = PageTitle::where('page_code','contact_us')->first(['page_title','page_sub_title']);
         $data['subscribe_title'] = PageTitle::where('page_code','subscribe')->first(['page_title','page_sub_title']);
+        $data['website_maps'] = Setting::where('name', 'website_maps')->latest()->first();
         return view('frontend.index',$data);
     }
 
@@ -224,4 +231,87 @@ class HomeController extends Controller
         }
 
     }
+
+    public function filterVehicle(Request $request)
+    {
+        // Start building the query
+        $query = Vehicle::where('status', 1);
+
+        // Apply filters dynamically based on the request inputs
+        if ($request->keyword !== null) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title','like', '%' . $request->keyword . '%')
+                    ->orWhere('short_description', 'like', '%' . $request->keyword . '%');
+            });
+        }
+
+        if ($request->brand_id !== null) {
+            $query->where('brand_id', $request->brand_id);
+        }
+
+        if ($request->model_id !== null) {
+            $query->where('model_id', $request->model_id);
+        }
+
+        if ($request->year_id !== null) {
+            $query->where('year_id', $request->year_id);
+        }
+
+        if ($request->fuel_type_id !== null) {
+            $query->where('fuel_type_id', $request->fuel_type_id);
+        }
+
+        $vehicle_total_count = $query->get()->count();
+        // Execute the query and get the results
+        $vehicles = $query->latest()->take(6)->orderBy('id','desc')->get();
+        $vehicle_count = $vehicles->count();
+        // Render the view into a string
+        $view = view('frontend.vehicle.search-vehicle', compact('vehicles'))->render();
+
+        // Return the view as JSON
+        return response()->json(['html' => $view,'vehicle_count'=>$vehicle_count,'vehicle_total_count'=>$vehicle_total_count]);
+    }
+
+    public function vehiclesByBrand($brand)
+    {
+        // Decode the Base64 encoded brand ID
+        $brandId = base64_decode($brand);
+
+        // Fetch vehicles by decoded brand ID
+        $data['vehicles'] = Vehicle::where('brand_id', $brandId)->where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->take(6)->orderBy('id','desc')->get();
+
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        $data['total_vehicles_count'] = Vehicle::where('brand_id', $brandId)->where('status',1)->count();
+        $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
+        $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
+        $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
+        $data['fuel_types'] = FuelType::where('status',1)->latest()->get(['id','title']);
+        $data['searched_brand'] = $brandId;
+
+        return view('frontend.vehicle.vehicle',$data);
+    }
+
+    public function vehiclesByYear($year)
+    {
+        // Decode the Base64 encoded brand ID
+        $yearId = base64_decode($year);
+
+        // Fetch vehicles by decoded brand ID
+        $data['vehicles'] = Vehicle::where('year_id', $yearId)->where('status',1)->with('brand:id,title','model:id,title','year:id,title','fuel_type:id,title')->latest()->take(6)->orderBy('id','desc')->get();
+
+        $banner = Logo::latest()->first(['page_banner']);
+        $data['banner'] = $banner->page_banner;
+        $data['total_vehicles_count'] = Vehicle::where('year_id', $yearId)->where('status',1)->count();
+        $data['featured_vehicle_title'] = PageTitle::where('page_code','featured_vehicles')->first(['page_title','page_sub_title']);
+        $data['brands'] = Brand::where('status',1)->get(['id','title','slug']);
+        $data['years'] = Year::where('status',1)->latest()->get(['id','title']);
+        $data['fuel_types'] = FuelType::where('status',1)->latest()->get(['id','title']);
+        $data['searched_year'] = $yearId;
+
+        return view('frontend.vehicle.vehicle',$data);
+    }
+
+
+
 }

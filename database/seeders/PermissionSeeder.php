@@ -500,5 +500,100 @@ class PermissionSeeder extends Seeder
             'name' => 'Delete',
             'slug' => 'auction-sheet.destroy',
         ]);
+
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Model Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'model.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'model.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'model.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'model.destroy',
+        ]);
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Year Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'year.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'year.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'year.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'year.destroy',
+        ]);
+
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Fuel Type Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'fuel-type.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'fuel-type.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'fuel-type.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'fuel-type.destroy',
+        ]);
+
+
+        /*Report Module Permission*/
+        $moduleForm = Module::updateOrCreate(['name' => 'Vehicle Management']);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'View',
+            'slug' => 'vehicle.index',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Create',
+            'slug' => 'vehicle.create',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Edit',
+            'slug' => 'vehicle.edit',
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleForm->id,
+            'name' => 'Delete',
+            'slug' => 'vehicle.destroy',
+        ]);
     }
 }

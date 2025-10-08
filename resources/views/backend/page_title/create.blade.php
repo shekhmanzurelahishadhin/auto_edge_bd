@@ -72,23 +72,23 @@
                                                     <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-3 py-4">
-                                                    <label>Status: <strong class="text-danger">*</strong></label> &nbsp;
-                                                    <div class="pretty p-icon p-round p-pulse">
-                                                        <input type="radio" id="active"  name="status" value="1" checked/>
-                                                        <div class="state p-success">
-                                                            <i class="icon mdi mdi-check"></i>
-                                                            <label for="active">Active</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="pretty p-icon p-round p-pulse">
-                                                        <input type="radio" id="inactive"  name="status" value="0" />
-                                                        <div class="state p-danger">
-                                                            <i class="icon mdi mdi-check"></i>
-                                                            <label for="inactive">Inactive</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+{{--                                                <div class="mb-3 py-4">--}}
+{{--                                                    <label>Status: <strong class="text-danger">*</strong></label> &nbsp;--}}
+{{--                                                    <div class="pretty p-icon p-round p-pulse">--}}
+{{--                                                        <input type="radio" id="active"  name="status" value="1" checked/>--}}
+{{--                                                        <div class="state p-success">--}}
+{{--                                                            <i class="icon mdi mdi-check"></i>--}}
+{{--                                                            <label for="active">Active</label>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="pretty p-icon p-round p-pulse">--}}
+{{--                                                        <input type="radio" id="inactive"  name="status" value="0" />--}}
+{{--                                                        <div class="state p-danger">--}}
+{{--                                                            <i class="icon mdi mdi-check"></i>--}}
+{{--                                                            <label for="inactive">Inactive</label>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
                                     </div>

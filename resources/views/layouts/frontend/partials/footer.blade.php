@@ -26,47 +26,23 @@
                         <section class="footer-section footer-section_list-columns">
                             <h3 class="footer-section__title ui-title-inner">Top Brands</h3>
                             <ul class="footer-list footer-list_columns list-unstyled">
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Alfa Romeo</a>
+                                @forelse($brands as $brand)
+                                <li class="footer-list__item"><a class="footer-list__link" href="{{ route('vehicles.brand', base64_encode($brand->id)) }}">{{$brand->title??''}}</a>
                                 </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Ferrari</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">BMW Series</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Mercedes</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Aston Martin</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Toyota</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Opel</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Land Rover</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Mclaren</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Peogeot</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Renault</a>
-                                </li>
+                                @empty
+                                @endforelse
                             </ul>
                         </section>
                     </div>
                     <div class="col-md-2">
                         <section class="footer-section footer-section_list-one">
-                            <h3 class="footer-section__title ui-title-inner">Categories</h3>
+                            <h3 class="footer-section__title ui-title-inner">Model Years</h3>
                             <ul class="footer-list list-unstyled">
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Trucks</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Sports Cars</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Crossovers</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Hybrid Cars</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Hybrid SUVs</a>
-                                </li>
-                                <li class="footer-list__item"><a class="footer-list__link" href="about.html">Future Cars</a>
-                                </li>
+                                @forelse($years as $year)
+                                    <li class="footer-list__item"><a class="footer-list__link" href="{{ route('vehicles.year', base64_encode($year->id)) }}">{{$year->title??''}}</a>
+                                    </li>
+                                @empty
+                                @endforelse
                             </ul>
                         </section>
                     </div>

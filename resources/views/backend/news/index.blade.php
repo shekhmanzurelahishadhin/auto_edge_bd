@@ -43,9 +43,6 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Title</th>
-                                @if( Auth::guard('admin')->user()->type =='super_admin')
-                                    <th>Published By</th>
-                                @endif
                                 <th>Published At</th>
                                 <th>Status</th>
                                 <th>Updated By</th>
@@ -57,19 +54,6 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ Str::limit( $data->title,60)  }}</td>
-                                    @if( Auth::guard('admin')->user()->type =='super_admin')
-                                        <td>
-                                            @if($data->department !=null)
-                                                <span
-                                                    class="badge rounded-pill badge-soft-info">{{ $data->department->name }}</span>
-                                            @elseif($data->institute !=null)
-                                                <span
-                                                    class="badge rounded-pill badge-soft-secondary">{{ $data->institute->name }}</span>
-                                            @else
-                                                <span class="badge rounded-pill badge-soft-danger">Super Admin</span>
-                                            @endif
-                                        </td>
-                                    @endif
                                     <td>{{ $data->published_at }}</td>
                                     <td>
                                         @if($data->deleted_at)

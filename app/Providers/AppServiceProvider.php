@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Brand;
 use App\Models\Faculty;
 use App\Models\Logo;
 use App\Models\Notice;
 use App\Models\Office;
 use App\Models\Setting;
+use App\Models\Year;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -48,7 +50,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('tweeter',Setting::where('name', 'website_twitter')->latest()->first(['value']));
             $view->with('linkedin',Setting::where('name', 'website_linkedin')->latest()->first(['value']));
             $view->with('instagram',Setting::where('name', 'website_instagram')->latest()->first(['value']));
+            $view->with('brands',Brand::where('status',1)->latest()->take(10)->get(['id','title','slug']));
+            $view->with('years',Year::where('status',1)->latest()->take(10)->get(['id','title']));
         });
+       view()->composer(['layouts/sidebar'], function ($view){
+           $view->with('logo',Logo::latest()->first());
+       });
 //        view()->composer(['layouts/frontend/partials/header'], function ($view){
 //            $view->with('last_updated',Audit::latest()->first());
 //            $view->with('logo',Logo::latest()->first());

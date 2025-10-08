@@ -24,6 +24,10 @@ use App\Http\Controllers\Admin\AboutAuctionController;
 use App\Http\Controllers\Admin\BiddingResultController;
 use App\Http\Controllers\Admin\AuctionGradeController;
 use App\Http\Controllers\Admin\AuctionSheetController;
+use App\Http\Controllers\Admin\ModelController;
+use App\Http\Controllers\Admin\YearController;
+use App\Http\Controllers\Admin\FuelTypeController;
+use App\Http\Controllers\Admin\VehicleController;
 
 
 
@@ -54,7 +58,7 @@ Route::group(['middleware' => 'superAdmin'], function () {
 /* --------------------------------------
 super admin routes end
 -----------------------------------------*/
-
+Route::get('getModelByBrandId', [ModelController::class, 'getModelByBrandId'])->name('getModelByBrandId');
 
 Route::get('user/{id}/profile', [UserProfileController::class, 'index'])->name('userProfile.edit');
 Route::post('password/update', [UserProfileController::class, 'password_update'])->name('password.update');
@@ -80,6 +84,22 @@ Route::get('gallery/restore/{id}', [GalleryController::class, 'restore'])->name(
 Route::resource('brand', BrandController::class);
 Route::post('brand/trash/{id}', [BrandController::class, 'trash'])->name('brand.trash');
 Route::get('brand/restore/{id}', [BrandController::class, 'restore'])->name('brand.restore');
+
+Route::resource('model', ModelController::class);
+Route::post('model/trash/{id}', [ModelController::class, 'trash'])->name('model.trash');
+Route::get('model/restore/{id}', [ModelController::class, 'restore'])->name('model.restore');
+
+Route::resource('year', YearController::class);
+Route::post('year/trash/{id}', [YearController::class, 'trash'])->name('year.trash');
+Route::get('year/restore/{id}', [YearController::class, 'restore'])->name('year.restore');
+
+Route::resource('fuel-type', FuelTypeController::class);
+Route::post('fuel-type/trash/{id}', [FuelTypeController::class, 'trash'])->name('fuel-type.trash');
+Route::get('fuel-type/restore/{id}', [FuelTypeController::class, 'restore'])->name('fuel-type.restore');
+
+Route::resource('vehicle', VehicleController::class);
+Route::post('vehicle/trash/{id}', [VehicleController::class, 'trash'])->name('vehicle.trash');
+Route::get('vehicle/restore/{id}', [VehicleController::class, 'restore'])->name('vehicle.restore');
 
 Route::get('about', [AboutUsController::class, 'create'])->name('about.create');
 Route::post('about-store', [AboutUsController::class, 'store'])->name('about.store');

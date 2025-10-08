@@ -2,7 +2,8 @@
 
 /* Default padding for large screens (applied by your existing rule) */
 .about-us-img-section {
-    padding-top: 120px !important;
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
 }
 
 /* For small monitors (≥768px and <992px) */

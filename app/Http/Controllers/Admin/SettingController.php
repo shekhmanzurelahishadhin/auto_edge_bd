@@ -168,6 +168,7 @@ class SettingController extends Controller
         $phone = Setting::where('name', 'website_phone')->latest()->first();
         $email = Setting::where('name', 'website_email')->latest()->first();
         $footer_details = Setting::where('name', 'footer_details')->latest()->first();
+        $website_maps = Setting::where('name', 'website_maps')->latest()->first();
 
 
 
@@ -175,6 +176,7 @@ class SettingController extends Controller
         $values['phone']=$phone->value??null;
         $values['email']=$email->value??null;
         $values['footer_details']=$footer_details->value??null;
+        $values['website_maps']=$website_maps->value??null;
 
 
 
@@ -213,6 +215,13 @@ class SettingController extends Controller
             [
                 'name' => 'footer_details',
                 'value'=>$request->footer_details,
+            ]
+        );
+        Setting::updateOrCreate(
+            ['name' => 'website_maps'],
+            [
+                'name' => 'website_maps',
+                'value'=>$request->website_maps,
             ]
         );
 
